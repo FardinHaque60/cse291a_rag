@@ -10,11 +10,11 @@ import json
 
 ## ------ TODO ------ 
 # modify fields based on location of data, name of collection to store it, and data types
-INPUT_DIRECTORY = os.getcwd() + "/data/"
+INPUT_DIRECTORY = os.getcwd() + "/data/HTML"
 # if entered collection name that exists, data will be added to collection, if collection doesnt exist, then it will be created with data
 QDRANT_COLLECTION_NAME = "headphone_data"
 # valid formats are PDF, HTML, TXT, and JSON
-DATA_FORMAT = "TXT"
+DATA_FORMAT = "HTML"
 
 def process_pdf_from_directory():
     """
