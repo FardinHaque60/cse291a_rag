@@ -5,6 +5,7 @@ from client import get_client, EMBEDDING_MODEL_NAME
 from fastembed import TextEmbedding
 import os
 import datetime
+import time
 
 # ------ TODO ------
 # modify query to ask what you want
@@ -24,6 +25,7 @@ print(f"Creating vector for the query: '{QUERY}'")
 query_vector = next(embedding_model.embed([QUERY]))
 
 # request qdrant with vector
+start = time.time()
 print("Searching for similar documents in Qdrant...")
 search_results = client.query_points(
     collection_name=COLLECTION_NAME,
@@ -32,12 +34,16 @@ search_results = client.query_points(
     limit=RESULT_COUNT,  
     with_payload=True 
 )
+end = time.time()
+print(f"Search completed in {end - start:.2f} seconds.")
 
 print("\n--- Top Search Results ---")
 out_dir = os.path.join(os.getcwd(), "qdrant", "out")
 os.makedirs(out_dir, exist_ok=True)
 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 out_path = os.path.join(out_dir, f"{timestamp}_qdrant_inference.txt")
+latency_path = os.path.join(out_dir, f"{timestamp}_qdrant_latency.txt")
+
 
 with open(out_path, "w") as f:
     for i, result in enumerate(search_results, 1):
@@ -45,4 +51,8 @@ with open(out_path, "w") as f:
         f.write(pprint.pformat(result))
         f.write("\n\n")
 
+with open(latency_path, "w") as f:
+    f.write(f"Query: {QUERY}\n")
+    f.write(f"Latency: {end - start:.2f} seconds\n")
+    
 print(f"Results saved to: {out_path}")
