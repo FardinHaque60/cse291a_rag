@@ -4,10 +4,14 @@ import json
 import sys
 from qdrant_client.http import models
 from fastembed import TextEmbedding
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from qdrant.client import get_client, EMBEDDING_MODEL_NAME
 from datetime import datetime
+
+K = 5 # calculating recall/precision at kth position
+L = 10 # limit for how many responses to get from qdrant
 
 def MRR(reranked_lists, ground_truth):
     """
@@ -110,8 +114,7 @@ def read_data_from_file(file_path):
         data = file.readlines()
     return [int(line.strip()) for line in data]
 
-def get_metric_from_relevance(qdrant_results, ground_truths): 
-    K = 10
+def get_metric_from_relevance(qdrant_results, ground_truths, latency): 
     mrr = MRR(qdrant_results, ground_truths)
     precision = precision_at_k(qdrant_results, ground_truths,  K)
     recall = recall_at_k( qdrant_results, ground_truths, K)
@@ -121,6 +124,7 @@ def get_metric_from_relevance(qdrant_results, ground_truths):
         "MRR": mrr,
         "Precision@K": precision,
         "Recall@K": recall,
+        "Latency": f"{latency:.2f} seconds"
         # "nDCG@K": ndcg
     }
 
@@ -164,13 +168,14 @@ if __name__ == "__main__":
         for prompt, gold_ans in zip(category["prompts"], category["gold_set"]):
             query_vector = next(embedding_model.embed([prompt]))
 
+            start = time.time()
             search_results = client.query_points(
                 collection_name="production_data",
                 query=query_vector.tolist(),
-                # query_vector=query_vector.tolist(), 
-                limit=10,  
+                limit=L,  
                 with_payload=True 
             )
+            end = time.time()
 
             ids = []
             for point in search_results:
@@ -182,7 +187,8 @@ if __name__ == "__main__":
                 gold_ans = [gold_ans]
 
             # compute metrics
-            metrics = get_metric_from_relevance(ids, gold_ans)
+            latency = end - start
+            metrics = get_metric_from_relevance(ids, gold_ans, latency)
 
             # prepare content to append
             entry = {
