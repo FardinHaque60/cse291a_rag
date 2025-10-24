@@ -57,7 +57,9 @@
   },
   {
     "category": "displays",
-    "prompts": [],
-    "gold_set": []
+    "prompts": ["How do I change the channel on a Samsung LCD TV?"],
+    "gold_set": [
+      "9d98e5a5-0c68-4c87-afed-348cc6d521e7"
+    ]
   }
 ]
