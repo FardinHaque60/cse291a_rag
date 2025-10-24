@@ -1,4 +1,13 @@
 import math
+import os
+import json
+import sys
+from qdrant_client.http import models
+from fastembed import TextEmbedding
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from qdrant.client import get_client, EMBEDDING_MODEL_NAME
+
 def MRR(reranked_lists, ground_truth):
     """
     (CHUNK Level)
@@ -100,18 +109,18 @@ def read_data_from_file(file_path):
         data = file.readlines()
     return [int(line.strip()) for line in data]
 
-def get_metric_from_relevance(doc_relevance, chunk_relevance, qdrant_results): 
+def get_metric_from_relevance(qdrant_results, ground_truths): 
     K = 10
-    mrr = MRR(qdrant_results, chunk_relevance)
-    precision = precision_at_k(qdrant_results,doc_relevance,  K)
-    recall = recall_at_k( qdrant_results,doc_relevance, K)
+    mrr = MRR(qdrant_results, ground_truths)
+    precision = precision_at_k(qdrant_results, ground_truths,  K)
+    recall = recall_at_k( qdrant_results, ground_truths, K)
     # grade relevance = doc + chunk
-    ndcg = nDCG_at_k(qdrant_results, chunk_relevance, doc_relevance, K)
+    # ndcg = nDCG_at_k(qdrant_results, chunk_relevance, doc_relevance, K)
     return {
         "MRR": mrr,
         "Precision@K": precision,
         "Recall@K": recall,
-        "nDCG@K": ndcg
+        # "nDCG@K": ndcg
     }
 
 def evaluate_metrics(doc_relevance_file, chunk_relevance_file, qdrant_results_file):
@@ -123,6 +132,7 @@ def evaluate_metrics(doc_relevance_file, chunk_relevance_file, qdrant_results_fi
     return metrics
 
 if __name__ == "__main__":
+    '''
     doc_relevance_file = "example/doc_relevances.txt"
     chunk_relevance_file = "example/chunk_relevances.txt"
     qdrant_results_file = "example/qdrant_results.txt"
@@ -130,3 +140,49 @@ if __name__ == "__main__":
     metrics = evaluate_metrics(doc_relevance_file, chunk_relevance_file, qdrant_results_file)
     for metric_name, value in metrics.items():
         print(f"{metric_name}: {value:.4f}") 
+    '''
+
+    client = get_client()
+    print(f"Initializing embedding model '{EMBEDDING_MODEL_NAME}'...")
+    embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
+    print("Model initialized.")
+
+    json_path = os.path.join(os.getcwd(), "metric", "prompts.json")
+    evals_file = []
+    try:
+        with open(json_path, "r", encoding="utf-8") as f:
+            evals_file = json.load(f)
+    except FileNotFoundError:
+        print(f"File not found: {json_path}")
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse JSON: {e}")
+
+    for category in evals_file:
+        for prompt, gold_ans in zip(category["prompts"], category["gold_set"]):
+            query_vector = next(embedding_model.embed([prompt]))
+
+            search_results = client.query_points(
+                collection_name="production_data",
+                query=query_vector.tolist(),
+                # query_vector=query_vector.tolist(), 
+                limit=10,  
+                with_payload=True 
+            )
+
+            ids = []
+            for point in search_results:
+                point_list = point[1]
+                for p in point_list:
+                    ids.append(p.id)
+
+            if not isinstance(gold_ans, list):
+                gold_ans = [gold_ans]
+
+            print("qdrant retrieved IDs:", ids)
+            print("gold set id(s):", gold_ans)
+            print()
+            metrics = get_metric_from_relevance(ids, gold_ans)
+
+            print("metrics for prompt:", prompt)
+            print(metrics)
+            print()

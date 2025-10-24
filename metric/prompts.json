@@ -1,0 +1,63 @@
+[
+  {
+    "category": "headphones",
+    "prompts": [
+      "What does the New York times say is the best wireless headphones?",
+      "I am considering buying the Sony XM4 headphones and I had some questions before I buy them. What is the battery life on these, what charger do they support (usb c?), is there any control on the noise cancelling, is there an option to use it wired, what color options are there?"
+    ],
+    "gold_set": [
+      "eba3e997-29cd-4f19-8d13-be25399fa5a5",
+      "f822f12a-241d-41ae-9b61-99c44173bdd0"
+    ]
+  },
+  {
+    "category": "laptops",
+    "prompts": [
+      "I'm thinking of getting an ASUS ROG gaming laptop, how much would it cost?",
+      "The battery on my HP x360 does not charge to full capacity. What options do I have to fix it?"
+    ],
+    "gold_set": [
+      "c328beae-cb80-4346-a440-58248c69f799",
+      [
+        "4d71910b-77bf-4d2b-aa91-797a21592f8c",
+        "7ee4e496-a112-439c-b4db-73190466f0f0"
+      ]
+    ]
+  },
+  {
+    "category": "phones",
+    "prompts": [
+      "After I replace my Samsung S25 Ultra battery, how do I reset the battery cycle count?",
+      "I'm thinking of buying the new iPhone Air, and was wondering what's the weight of the phone?"
+    ],
+    "gold_set": [
+      [
+        "1e4ffe29-e689-4389-9d06-804e9c6e8027",
+        "a260cae8-7cf2-4752-83e2-e470e3e7773f",
+        "cb71e926-cf66-41a7-83b3-1753daaf5dd1"
+      ],
+      "434d0b69-4d88-45ee-98d8-dd6d55615eff"
+    ]
+  },
+  {
+    "category": "camera",
+    "prompts": [
+      "How do I set timer for Sony ZV-E10?",
+      "Does the Sony ILCA-77M2 support wireless flash control and NFC pairing?",
+      "How big and how much weight is for the camera Sony ILCE-7m4? What's provided with the camera in the box?"
+    ],
+    "gold_set": [
+      [
+        "65702a47-1565-4f0d-8899-a7c7d51255e0",
+        "ace0f57a-daaa-4fac-b8fb-764e893852d9"
+      ],
+      "7de62481-9323-4cb1-9c56-a3f6e98f9fbc",
+      "80df52ff-5ddb-46ee-9aa6-695dc4c0bdab"
+    ]
+  },
+  {
+    "category": "displays",
+    "prompts": [],
+    "gold_set": []
+  }
+]
