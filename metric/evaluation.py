@@ -7,6 +7,7 @@ from fastembed import TextEmbedding
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from qdrant.client import get_client, EMBEDDING_MODEL_NAME
+from datetime import datetime
 
 def MRR(reranked_lists, ground_truth):
     """
@@ -157,6 +158,8 @@ if __name__ == "__main__":
     except json.JSONDecodeError as e:
         print(f"Failed to parse JSON: {e}")
 
+    results = []
+
     for category in evals_file:
         for prompt, gold_ans in zip(category["prompts"], category["gold_set"]):
             query_vector = next(embedding_model.embed([prompt]))
@@ -178,11 +181,28 @@ if __name__ == "__main__":
             if not isinstance(gold_ans, list):
                 gold_ans = [gold_ans]
 
-            print("qdrant retrieved IDs:", ids)
-            print("gold set id(s):", gold_ans)
-            print()
+            # compute metrics
             metrics = get_metric_from_relevance(ids, gold_ans)
 
-            print("metrics for prompt:", prompt)
-            print(metrics)
-            print()
+            # prepare content to append
+            entry = {
+                "prompt": prompt,
+                "qdrant_ids": ids,
+                "gold_set": gold_ans,
+                "metrics": metrics
+            }
+
+            results.append(entry)
+
+    # prepare output directory and persistent file path for the run
+    out_dir = os.path.join(os.getcwd(), "metric", "out")
+    os.makedirs(out_dir, exist_ok=True)
+    if 'metrics_file_path' not in globals():
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        metrics_file_path = os.path.join(out_dir, f"{timestamp}_metrics.json")
+
+    with open(metrics_file_path, "a", encoding="utf-8") as out_f:
+        json.dump(results, out_f, ensure_ascii=False, indent=2)
+        out_f.write("\n\n")
+    
+    print("metrics wrote to out/ directory")
