@@ -57,9 +57,16 @@
   },
   {
     "category": "displays",
-    "prompts": ["How do I change the channel on a Samsung LCD TV?"],
+    "prompts": ["How do I change the channel on a Samsung LCD TV?", "How do I setup an AORUS gaming monitor?"],
     "gold_set": [
-      "9d98e5a5-0c68-4c87-afed-348cc6d521e7"
+      "9d98e5a5-0c68-4c87-afed-348cc6d521e7",
+      [
+        "5ac1aa0e-b5b6-4037-9d9d-1ee32f9b55d3",
+        "24fd830a-8d1f-47a9-b923-2e296e29fdfe",
+        "06f33908-b700-4957-9fce-b12217a5e980",
+        "d41f32d8-24c2-4e58-b65c-28992229fe0f",
+        "c20e366b-47a9-452e-9a7d-5196e4e9407a"
+      ]
     ]
   }
 ]
