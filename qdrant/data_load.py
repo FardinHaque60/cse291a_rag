@@ -10,15 +10,15 @@ import json
 
 ## ------ TODO ------ 
 # modify fields based on location of data, name of collection to store it, and data types
-INPUT_DIRECTORY = os.getcwd() + "/data/HTML"
+INPUT_DIRECTORY = os.getcwd() + "/data/camera_data/"
 # if entered collection name that exists, data will be added to collection, if collection doesnt exist, then it will be created with data
-QDRANT_COLLECTION_NAME = "headphone_data"
+QDRANT_COLLECTION_NAME = "production_data"
 # valid formats are PDF, HTML, TXT, and JSON
-DATA_FORMAT = "HTML"
+DATA_FORMAT = "PDF"
 
 def process_pdf_from_directory():
     """
-    Scans a directory for PDF files, extracts text, and splits it into chunks.
+    Scans a directory for PDF files, extracts text, and splits it into chunks by page.
     
     Returns:
         A list of dictionaries, where each dictionary contains the source filename
@@ -32,19 +32,17 @@ def process_pdf_from_directory():
             file_path = os.path.join(INPUT_DIRECTORY, filename)
             try:
                 reader = PdfReader(file_path)
-                full_text = ""
+                chunks = []
                 for page in reader.pages:
                     page_text = page.extract_text()
                     if page_text:
-                        full_text += page_text + "\n"
+                        chunks.append(page_text.strip())
                 
-                # split by paragraphs.
-                chunks = [chunk.strip() for chunk in full_text.split('\n\n') if chunk.strip()]
-                
-                for text_chunk in chunks:
+                for i, text in enumerate(chunks):
                     all_text_chunks.append({
                         "source_file": filename,
-                        "text": text_chunk
+                        "page": i+1,
+                        "text": text 
                     })
                 print(f"  - Extracted {len(chunks)} text chunks from '{filename}'.")
 
@@ -80,17 +78,13 @@ def process_html_from_directory():
                 # .get_text() is powerful; it strips tags and combines text.
                 # The separator ensures paragraphs are spaced, making chunking reliable.
                 full_text = soup.body.get_text(separator='\n\n', strip=True)
-
-                # Split by paragraphs
-                chunks = [chunk.strip() for chunk in full_text.split('\n\n') if chunk.strip()]
                 
-                for text_chunk in chunks:
-                    all_text_chunks.append({
-                        "source_file": filename,
-                        "title": page_title,
-                        "text": text_chunk
-                    })
-                print(f"  - Extracted {len(chunks)} text chunks from '{filename}'.")
+                all_text_chunks.append({
+                    "source_file": filename,
+                    "title": page_title,
+                    "text": full_text
+                })
+                print(f"  - Extracted from '{filename}'.")
 
             except Exception as e:
                 print(f"  - ERROR: Failed to process '{filename}': {e}")
@@ -115,15 +109,11 @@ def process_txt_from_directory():
                 with open(file_path, 'r', encoding='utf-8') as f:
                     full_text = f.read()
                 
-                # Split by paragraphs (double newline). This is a robust way to chunk text files.
-                chunks = [chunk.strip() for chunk in full_text.split('\n\n') if chunk.strip()]
-                
-                for text_chunk in chunks:
-                    all_text_chunks.append({
-                        "source_file": filename,
-                        "text": text_chunk
-                    })
-                print(f"  - Extracted {len(chunks)} text chunks from '{filename}'.")
+                all_text_chunks.append({
+                    "source_file": filename,
+                    "text": full_text
+                })
+                print(f"  - Extracted from '{filename}'.")
 
             except Exception as e:
                 print(f"  - ERROR: Failed to process '{filename}': {e}")
@@ -131,6 +121,9 @@ def process_txt_from_directory():
     return all_text_chunks
 
 def process_json_from_directory():
+    '''
+    expects data represented as a single json object
+    '''
     all_text_chunks = []
 
     print(f"Scanning for .json files in '{INPUT_DIRECTORY}'...")
@@ -141,32 +134,23 @@ def process_json_from_directory():
                 with open(file_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
                 
-                # Ensure data is a list to process records uniformly
-                if not isinstance(data, list):
-                    data = [data] # Treat a single object as a list with one item
+                # Ensure data is one json object
+                if not isinstance(data, dict):
+                    data = {"data": data}
 
-                records_processed = 0
-                for record in data:
-                    if not isinstance(record, dict):
-                        # Skip non-object items in the list if the JSON is mixed
-                        continue
-                    
-                    payload = record.copy()
-                    payload["source_file"] = filename
-                    text_to_embed = json.dumps(record, indent=2)
-                    payload["text"] = text_to_embed
-                    
-                    all_text_chunks.append(payload)
-                    records_processed += 1
+                payload = {}
+                payload["source_file"] = filename
+                payload["text"] = json.dumps(data, indent=2)
+                all_text_chunks.append(payload)
                 
-                print(f"  - Extracted text from {records_processed} records in '{filename}'.")
+                print(f"  - Extracted text from '{filename}'.")
 
             except Exception as e:
                 print(f"  - ERROR: Failed to process '{filename}': {e}")
                 
     return all_text_chunks
 
-def main(format):
+def qdrant_run():
     """
     Main function to orchestrate the PDF processing and uploading workflow.
     """
@@ -195,7 +179,7 @@ def main(format):
 
     # --- 3. Read and Process Local PDFs ---
     document_chunks = []
-    match format:
+    match DATA_FORMAT:
         case "PDF":
             document_chunks = process_pdf_from_directory()
         case "HTML":
@@ -226,6 +210,7 @@ def main(format):
     
     points_to_upload = []
     for vector, chunk_data in zip(embeddings_result, document_chunks):
+        del chunk_data["text"] # remove raw text from metadata
         points_to_upload.append(
             models.PointStruct(
                 id=str(uuid.uuid4()),
@@ -244,4 +229,19 @@ def main(format):
     print(f"\nWorkflow finished. Your data is now in the '{QDRANT_COLLECTION_NAME}' collection.")
 
 if __name__ == "__main__":
-    main(DATA_FORMAT)
+    run_all = False # if set then it will run on all prompts specified in below list, otherwise run on constants defined above
+
+    if run_all:
+        root_dir = os.getcwd() + "/data/"
+        print(f"starting run for all inputs dirs in {root_dir}")
+        input_dirs = ["camera_data", "displays_data", "headphone_data", "headphone_data/articles", "headphone_data/manuals", "laptop_data/HTML", "laptop_data/PDF", "phone_data"]
+        input_dirs = [os.path.join(root_dir, entry)  for entry in input_dirs]
+        formats = ["PDF", "HTML", "JSON", "TXT"]
+
+        for format in formats:
+            DATA_FORMAT = format
+            for input_dir in input_dirs:
+                INPUT_DIRECTORY = input_dir
+                qdrant_run() # run for currently set input_dir and data_format
+    else:
+        qdrant_run()

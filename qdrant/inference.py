@@ -9,8 +9,8 @@ import time
 
 # ------ TODO ------
 # modify query to ask what you want
-QUERY = "What are the best pair of over the ear headphones for a college student. I am looking for things like long battery life, good noise cancellation, and something under $200-$250. Not too concerned about the audio quality, I need something that will last me a long time and is easy on the go like on the bus, walking around, usually in noisy environments."
-COLLECTION_NAME = "headphone_data"
+QUERY = "What does the New York times say is the best wireless headphones?"
+COLLECTION_NAME = "production_data"
 RESULT_COUNT = 3 # top n results to return
 
 client = get_client()
