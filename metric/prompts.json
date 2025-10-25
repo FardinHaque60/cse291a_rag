@@ -8,7 +8,8 @@
     "gold_set": [
       "eba3e997-29cd-4f19-8d13-be25399fa5a5",
       "f822f12a-241d-41ae-9b61-99c44173bdd0"
-    ]
+    ],
+    "gold_files": ["nytimes_review.txt", "xm4_man.pdf"]
   },
   {
     "category": "laptops",
@@ -22,7 +23,8 @@
         "4d71910b-77bf-4d2b-aa91-797a21592f8c",
         "7ee4e496-a112-439c-b4db-73190466f0f0"
       ]
-    ]
+    ],
+    "gold_files": ["ASUS ROG Zephyrus G16 (2025) GU605.pdf", "HP Spectre x360 service manual.pdf"]
   },
   {
     "category": "phones",
@@ -37,7 +39,8 @@
         "cb71e926-cf66-41a7-83b3-1753daaf5dd1"
       ],
       "434d0b69-4d88-45ee-98d8-dd6d55615eff"
-    ]
+    ],
+    "gold_files": ["Samsung_S25_Ultra_Repair_Guide.pdf", "iPhone Air - Tech Specs - Apple Support.html"]
   },
   {
     "category": "camera",
@@ -53,7 +56,8 @@
       ],
       "7de62481-9323-4cb1-9c56-a3f6e98f9fbc",
       "80df52ff-5ddb-46ee-9aa6-695dc4c0bdab"
-    ]
+    ],
+    "gold_files": ["zv-e10_manual.pdf", "ilca-77m2_specifications.json", "ilce-7m4_specifications.json"]
   },
   {
     "category": "displays",
@@ -67,6 +71,7 @@
         "d41f32d8-24c2-4e58-b65c-28992229fe0f",
         "c20e366b-47a9-452e-9a7d-5196e4e9407a"
       ]
-    ]
+    ],
+    "gold_files": ["[LD550-ZA]BN68-04313A-00ENG-0223.pdf", "AORUS_FI32U_UM-English.pdf"]
   }
 ]
