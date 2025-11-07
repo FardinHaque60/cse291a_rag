@@ -6,12 +6,14 @@ from fastembed import TextEmbedding
 import os
 import datetime
 import time
+from sentence_transformers import CrossEncoder
+
 
 # ------ TODO ------
 # modify query to ask what you want
 QUERY = "What does the New York times say is the best wireless headphones?"
 COLLECTION_NAME = "production_data"
-RESULT_COUNT = 3 # top n results to return
+RESULT_COUNT = 10 # top n results to return
 
 client = get_client()
 
@@ -35,6 +37,13 @@ search_results = client.query_points(
     with_payload=True 
 )
 end = time.time()
+# rerank with cross-encoder
+reranker_model = CrossEncoder("BAAI/bge-reranker-base")
+print("Reranking results...")
+results = [(QUERY, item.payload["source_file"]) for item in search_results.points]
+scores = reranker_model.predict(results)
+ranked_results = sorted(zip(search_results.points, scores), key=lambda x: x[1], reverse=True)
+
 print(f"Search completed in {end - start:.2f} seconds.")
 
 print("\n--- Top Search Results ---")
@@ -45,8 +54,8 @@ out_path = os.path.join(out_dir, f"{timestamp}_qdrant_inference.txt")
 latency_path = os.path.join(out_dir, f"{timestamp}_qdrant_latency.txt")
 
 
-with open(out_path, "w") as f:
-    for i, result in enumerate(search_results, 1):
+with open(out_path, "a") as f:
+    for i, result in enumerate(ranked_results):
         f.write(f"Result {i}:\n")
         f.write(pprint.pformat(result))
         f.write("\n\n")
