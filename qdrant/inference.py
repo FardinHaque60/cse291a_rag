@@ -41,7 +41,7 @@ end = time.time()
 reranker_model = CrossEncoder("BAAI/bge-reranker-base")
 print("Reranking results...")
 results = [(QUERY, item.payload["source_file"]) for item in search_results.points]
-scores = reranker_model.predict(results)
+scores = [score.item() for score in reranker_model.predict(results)]
 ranked_results = sorted(zip(search_results.points, scores), key=lambda x: x[1], reverse=True)
 
 print(f"Search completed in {end - start:.2f} seconds.")
