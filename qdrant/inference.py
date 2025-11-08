@@ -1,12 +1,15 @@
 # run this file to make inference requests: python qdrant/inference.py
 # modify QUERY and COLLECTION_NAME as needed
+import os, sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pprint
-from client import get_client, EMBEDDING_MODEL_NAME
-from fastembed import TextEmbedding
+from qdrant.client import get_client, get_reranker
 import os
 import datetime
 import time
-from sentence_transformers import CrossEncoder
+# import retrieval pipeline as absolute path using importlib
+from qdrant.pipeline import retrieval_pipeline
+
 
 
 # ------ TODO ------
@@ -16,34 +19,12 @@ COLLECTION_NAME = "production_data"
 RESULT_COUNT = 10 # top n results to return
 
 client = get_client()
-
-# init embeddings model
-print(f"Initializing embedding model '{EMBEDDING_MODEL_NAME}'...")
-embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
-print("Model initialized.")
-
-# create vector for the query
-print(f"Creating vector for the query: '{QUERY}'")
-query_vector = next(embedding_model.embed([QUERY]))
-
+reranker_model = get_reranker()
 # request qdrant with vector
 start = time.time()
 print("Searching for similar documents in Qdrant...")
-search_results = client.query_points(
-    collection_name=COLLECTION_NAME,
-    query=query_vector.tolist(),
-    # query_vector=query_vector.tolist(), 
-    limit=RESULT_COUNT,  
-    with_payload=True 
-)
+ranked_results = retrieval_pipeline(QUERY, COLLECTION_NAME, RESULT_COUNT, client, reranker_model)
 end = time.time()
-# rerank with cross-encoder
-reranker_model = CrossEncoder("BAAI/bge-reranker-base")
-print("Reranking results...")
-results = [(QUERY, item.payload["source_file"]) for item in search_results.points]
-scores = [score.item() for score in reranker_model.predict(results)]
-ranked_results = sorted(zip(search_results.points, scores), key=lambda x: x[1], reverse=True)
-
 print(f"Search completed in {end - start:.2f} seconds.")
 
 print("\n--- Top Search Results ---")
