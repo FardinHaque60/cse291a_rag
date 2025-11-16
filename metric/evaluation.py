@@ -2,13 +2,14 @@ import math
 import os
 import json
 import sys
-from qdrant_client.http import models
 from fastembed import TextEmbedding
 import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from qdrant.client import get_client, EMBEDDING_MODEL_NAME
+from qdrant.client import get_client, EMBEDDING_MODEL_NAME, get_reranker
 from datetime import datetime
+
+from qdrant.pipeline import retrieval_pipeline
 
 K = 5 # calculating recall/precision at kth position
 L = 10 # limit for how many responses to get from qdrant
@@ -152,6 +153,7 @@ if __name__ == "__main__":
     '''
 
     client = get_client()
+    reranker_model = get_reranker()
     print(f"Initializing embedding model '{EMBEDDING_MODEL_NAME}'...")
     embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
     print("Model initialized.")
@@ -179,24 +181,17 @@ if __name__ == "__main__":
     for category in evals_file:
         for prompt, gold_ids, gold_file in zip(category["prompts"], category["gold_set"], category["gold_files"]):
             prompts += 1
-            query_vector = next(embedding_model.embed([prompt]))
 
             start = time.time()
-            search_results = client.query_points(
-                collection_name="production_data",
-                query=query_vector.tolist(),
-                limit=L,  
-                with_payload=True 
-            )
+            search_results = retrieval_pipeline(prompt, "production_data", L, client, reranker_model)
             end = time.time()
 
             qdrant_ids = []
             qdrant_files = []
-            for point in search_results:
-                point_list = point[1]
-                for p in point_list:
-                    qdrant_ids.append(p.id)
-                    qdrant_files.append(p.payload["source_file"]) # check if field exists
+            for item in search_results:
+                point, score = item
+                qdrant_ids.append(point.id)
+                qdrant_files.append(point.payload["source_file"]) # check if field exists
 
             if not isinstance(gold_ids, list):
                 gold_ids = [gold_ids]
@@ -218,7 +213,7 @@ if __name__ == "__main__":
             }
 
             results.append(entry)
-
+    print(f"Evaluated {prompts} prompts.")
     for metric in avg_metrics:
         avg_metrics[metric] = round(avg_metrics[metric]/prompts, 3)
     results.append(avg_metrics)

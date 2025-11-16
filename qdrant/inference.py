@@ -1,39 +1,29 @@
 # run this file to make inference requests: python qdrant/inference.py
 # modify QUERY and COLLECTION_NAME as needed
+import os, sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pprint
-from client import get_client, EMBEDDING_MODEL_NAME
-from fastembed import TextEmbedding
+from qdrant.client import get_client, get_reranker
 import os
 import datetime
 import time
+# import retrieval pipeline as absolute path using importlib
+from qdrant.pipeline import retrieval_pipeline
+
+
 
 # ------ TODO ------
 # modify query to ask what you want
 QUERY = "What does the New York times say is the best wireless headphones?"
 COLLECTION_NAME = "production_data"
-RESULT_COUNT = 3 # top n results to return
+RESULT_COUNT = 10 # top n results to return
 
 client = get_client()
-
-# init embeddings model
-print(f"Initializing embedding model '{EMBEDDING_MODEL_NAME}'...")
-embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
-print("Model initialized.")
-
-# create vector for the query
-print(f"Creating vector for the query: '{QUERY}'")
-query_vector = next(embedding_model.embed([QUERY]))
-
+reranker_model = get_reranker()
 # request qdrant with vector
 start = time.time()
 print("Searching for similar documents in Qdrant...")
-search_results = client.query_points(
-    collection_name=COLLECTION_NAME,
-    query=query_vector.tolist(),
-    # query_vector=query_vector.tolist(), 
-    limit=RESULT_COUNT,  
-    with_payload=True 
-)
+ranked_results = retrieval_pipeline(QUERY, COLLECTION_NAME, RESULT_COUNT, client, reranker_model)
 end = time.time()
 print(f"Search completed in {end - start:.2f} seconds.")
 
@@ -45,8 +35,8 @@ out_path = os.path.join(out_dir, f"{timestamp}_qdrant_inference.txt")
 latency_path = os.path.join(out_dir, f"{timestamp}_qdrant_latency.txt")
 
 
-with open(out_path, "w") as f:
-    for i, result in enumerate(search_results, 1):
+with open(out_path, "a") as f:
+    for i, result in enumerate(ranked_results):
         f.write(f"Result {i}:\n")
         f.write(pprint.pformat(result))
         f.write("\n\n")
