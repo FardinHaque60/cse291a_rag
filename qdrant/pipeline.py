@@ -18,12 +18,13 @@ def retrieval_pipeline(query, collection_name, results_count, client, reranker_m
     print(f"Creating vector for the query: '{query}'")
     query_vector = next(embedding_model.embed([query]))
     search_results = client.query_points(
-    collection_name=collection_name,
-    query=query_vector.tolist(),
-    # query_vector=query_vector.tolist(), 
-    limit=results_count,  
-    with_payload=True 
-)
+        collection_name=collection_name,
+        query=query_vector.tolist(),
+        # query_vector=query_vector.tolist(), 
+        limit=results_count,  
+        with_payload=True 
+    )
+    print(f"Search results: {search_results}")
 
     # rerank with cross-encoder
     print("Reranking results...")

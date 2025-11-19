@@ -10,8 +10,6 @@ import time
 # import retrieval pipeline as absolute path using importlib
 from qdrant.pipeline import retrieval_pipeline
 
-
-
 # ------ TODO ------
 # modify query to ask what you want
 QUERY = "What does the New York times say is the best wireless headphones?"
