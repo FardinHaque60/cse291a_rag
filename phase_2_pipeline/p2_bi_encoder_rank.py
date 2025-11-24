@@ -34,5 +34,15 @@ def bi_encoder_rank(processed_user_query: str) -> dict:
     # returns a list of ScoredPoint objects, example format:
     # ScoredPoint(id='37fcf274-8072-4d8e-bde1-1ee375a4b4d6', version=24, score=0.8005285, payload={'source_file': 'wired_article.pdf', 'page': 2}, vector=None, shard_key=None, order_value=None)
 
+    '''
+    # metadata for 
+    metadata = {
+        source_file: str,
+        page_num: int,
+        summary: str (LLM generated summary),
+        keyword: list of str (LLM generated),
+    }
+    '''
+
 if __name__ == "__main__":
     print(bi_encoder_rank(PROCESSED_QUERY))

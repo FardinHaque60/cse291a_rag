@@ -6,6 +6,12 @@ from lib.embedding_models import cross_encoder_model
 # TODO modify prompt to run unit test
 PROCESSED_QUERY = ""
 
+''' try cross encoder with multiple options:
+- summary
+- keywords
+- raw text
+'''
+
 # TODO determine format for initial chunks
 def cross_encoder_rerank(initial_chunks: dict, processed_query: str) -> dict:
     '''
