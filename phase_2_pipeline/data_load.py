@@ -1,392 +1,48 @@
 import requests
-import pprint
-
-SYS_PROMPT = '''
-Return me a json object with one key being 'summary' which is a 4-5 sentence summary of the text I pass in. 
-make the second key 'keywords' which is 5-8 keywords based on the text i pass in.
-'''
-
-RAW_TEXT = '''
-'WH-CH520 Model,  Modèle, Modelo: YY2958\n'
-          'Wireless Stereo Headset \n'
-          'Casque stéréo sans fil\n'
-          '5-044-177-11(1)\n'
-          'Reference Guide Guide de référence Guía de referencia\n'
-          '©2023 Son y Corporation\n'
-          'Printed in Vietnam\n'
-          'Imprimé au Vietnam\n'
-          'https://www.sony.net/\n'
-          'https://rd1.sony.net/help/mdr/2958/h_zz/\n'
-          '\ue310\n'
-          '\ue311\n'
-          'English\n'
-          'Wireless Stereo Headset\n'
-          'Model: YY2958\n'
-          'The term “product” in this document refers to the \n'
-          'unit or its accessories.\n'
-          'FOR UNITED STATES CUSTOMERS. NOT \n'
-          'APPLICABLE IN CANADA, INCLUDING IN THE \n'
-          'PROVINCE OF QUEBEC. \n'
-          'POUR LES CONSOMMATEURS AUX \n'
-          'ÉTATS-UNIS. NON APPLICABLE AU CANADA, \n'
-          'Y COMPRIS LA PROVINCE DE QUÉBEC.\n'
-          'The nameplate and important information \n'
-          'concerning safety are attached in the following \n'
-          'locations:\n'
-          'See Fig. \ue310\n'
-          'Do not install the product in a confined space, \n'
-          'such as a bookcase or built-in cabinet.\n'
-          'Do not expose the batteries (battery pack or \n'
-          'batteries installed) to excessive heat, such as \n'
-          'sunshine, fire or the like, for a long time.\n'
-          'Do not subject the batteries to extreme low \n'
-          'temperature conditions that may result in \n'
-          'overheating and thermal runaway.\n'
-          'Do not dismantle, open, or shred secondary \n'
-          'batteries.\n'
-          'In the event of a secondary battery leaking, do \n'
-          'not allow the liquid to come in contact with the \n'
-          'skin or eyes. If contact has been made, wash the \n'
-          'affected area with copious amounts of water and \n'
-          'seek medical advice.\n'
-          'Secondary batteries need to be charged before \n'
-          'use. Always refer to the manufacturer’s \n'
-          'instructions or product manual for proper \n'
-          'charging instructions.\n'
-          'After extended periods of storage, it may be \n'
-          'necessary to charge and discharge the \n'
-          'secondary batteries several times to obtain \n'
-          'maximum performance.\n'
-          'Dispose of properly.\n'
-          'RECYCLING RECHARGEABLE BATTERIES\n'
-          'Rechargeable batteries are recyclable.\n'
-          'You can help preserve our environment by \n'
-          'returning your used rechargeable batteries to the \n'
-          'collection and recycling location nearest you.\n'
-          'For more information regarding recycling of \n'
-          'rechargeable batteries, visit http://www.sony.\n'
-          'com/electronics/eco/environmental-\n'
-          'management\n'
-          'Caution: Do not handle damaged or leaking \n'
-          'rechargeable batteries.\n'
-          'FOR UNITED STATES CUSTOMERS. NOT \n'
-          'APPLICABLE IN CANADA, INCLUDING IN THE \n'
-          'PROVINCE OF QUEBEC. \n'
-          'POUR LES CONSOMMATEURS AUX \n'
-          'ÉTATS-UNIS. NON APPLICABLE AU CANADA, \n'
-          'Y COMPRIS LA PROVINCE DE QUÉBEC.\n'
-          'You are cautioned that any changes or \n'
-          'modifications not expressly approved in this \n'
-          'manual could void your authority to operate \n'
-          'this unit.\n'
-          'If you have any questions about this \n'
-          'product:\n'
-          'Visit: https://www.sony.com/electronics/\n'
-          'support\n'
-          'Contact: Sony Customer Information Service \n'
-          'Center at 1-800-222-7669\n'
-          'Write: Sony Customer Information Service \n'
-          'Center 12451 Gateway Blvd., Fort Myers, FL \n'
-          '33913\n'
-          'Supplier’s Declaration of Conformity\n'
-          'Trade Name: SONY\n'
-          'Model: YY2958\n'
-          'Responsible Party: Sony Electronics Inc.\n'
-          'Address: 16535 Via Esprillo, San Diego, CA \n'
-          '92127 U.S.A.\n'
-          'Telephone Number: 858-942-2230\n'
-          'This device complies with Part 15 of the FCC \n'
-          'Rules. Operation is subject to the following \n'
-          'two conditions:\n'
-          '(1) this device may not cause harmful \n'
-          'interference, and\n'
-          '(2) this device must accept any interference \n'
-          'received, including interference that may \n'
-          'cause undesired operation.\n'
-          'NOTE:\n'
-          'This unit has been tested and found to \n'
-          'comply with the limits for a Class B digital \n'
-          'device, pursuant to Part 15 of the FCC Rules. \n'
-          'These limits are designed to provide \n'
-          'reasonable protection against harmful \n'
-          'interference in a residential installation. This \n'
-          'unit generates, uses, and can radiate radio \n'
-          'frequency energy and, if not installed and \n'
-          'used in accordance with the instructions, may \n'
-          'cause harmful interference to radio \n'
-          'communications.\n'
-          'However, there is no guarantee that \n'
-          'interference will not occur in a particular \n'
-          'installation. If this unit does cause harmful \n'
-          'interference to radio or television reception, \n'
-          'which can be determined by turning the unit \n'
-          'off and on, the user is encouraged to try to \n'
-          'correct the interference by one or more of the \n'
-          'following measures:\n'
-          '• Reorient or relocate the receiving antenna.\n'
-          '• Increase the separation between the unit \n'
-          'and receiver.\n'
-          '• Connect the unit into an outlet on a circuit \n'
-          'different from that to which the receiver is \n'
-          'connected.\n'
-          '• Consult the dealer or an experienced radio/\n'
-          'TV technician for help.\n'
-          'This unit must not be co-located or operated \n'
-          'in conjunction with any other antenna or \n'
-          'transmitter.\n'
-          'This unit complies with FCC radiation \n'
-          'exposure limits set forth for an uncontrolled \n'
-          'environment and meets the FCC radio \n'
-          'frequency (RF) Exposure Guidelines. This unit \n'
-          'has very low levels of RF energy. \n'
-          'For customers in Canada\n'
-          'This unit contains licence-exempt \n'
-          'transmitter(s)/receiver(s) that comply with \n'
-          'Innovation, Science and Economic \n'
-          'Development Canada’s licence-exempt \n'
-          'RSS(s). Operation is subject to the following \n'
-          'two conditions:\n'
-          '(1) This unit may not cause interference; and\n'
-          '(2) This unit must accept any interference, \n'
-          'including interference that may cause \n'
-          'undesired operation of the unit.\n'
-          'The available scientific evidence does not \n'
-          'show that any health problems are \n'
-          'associated with using low power wireless \n'
-          'devices. There is no proof, however, that \n'
-          'these low power wireless devices are \n'
-          'absolutely safe. Low power wireless devices \n'
-          'emit low levels of radio frequency energy (RF) \n'
-          'in the microwave range while being used. \n'
-          'Whereas high levels of RF can produce health \n'
-          'effects (by heating tissue), exposure of \n'
-          'low-level RF that does not produce heating \n'
-          'effects causes no known adverse health \n'
-          'effects. Many studies of low-level RF \n'
-          'exposures have not found any biological \n'
-          'effects. Some studies have suggested that \n'
-          'some biological effects might occur, but such \n'
-          'findings have not been confirmed by \n'
-          'additional research. The unit has been tested \n'
-          'and found to comply with ISED radiation \n'
-          'exposure limits set forth for an uncontrolled \n'
-          'environment and meets RSS-102 of the ISED \n'
-          'radio frequency (RF) Exposure rules. \n'
-          'High volume may adversely affect your hearing.\n'
-          'Do not use the unit while walking, driving, or \n'
-          'cycling. Doing so may cause traffic accidents.\n'
-          'Do not use in hazardous areas unless the \n'
-          'surrounding sound can be heard.\n'
-          'The unit is not waterproof. If water or foreign \n'
-          'matter enters the unit, it may result in fire or \n'
-          'electric shock. If water or foreign matter enters \n'
-          'the unit, stop use immediately and consult your \n'
-          'nearest Sony dealer. In particular, be careful in \n'
-          'the following cases.\n'
-          '• When using the unit near a sink or liquid \n'
-          'container\n'
-          'Be careful that the unit does not fall into a sink \n'
-          'or container filled with water.\n'
-          '• When using the unit in the rain or snow, or in \n'
-          'humid locations\n'
-          '• When using the unit while you are perspiring\n'
-          'If you touch the unit with wet hands, or put the \n'
-          'unit in the pocket of a damp article of clothing, \n'
-          'the unit may get wet.\n'
-          'For details on the effects of contact with the \n'
-          'human body from the mobile phone or other \n'
-          'wireless devices connected to the unit, refer to \n'
-          'the instruction manual of the wireless device.\n'
-          'Never insert the USB plug when the unit or \n'
-          'charging cable is wet. If the USB plug is inserted \n'
-          'while the unit or charging cable is wet, a short \n'
-          'circuit may occur due to liquid (tap water, \n'
-          'seawater, soft drink, etc.) or foreign matter on \n'
-          'the unit or charging cable, and cause abnormal \n'
-          'heat generation or malfunction.\n'
-          'This product has magnet(s) which may interfere \n'
-          'with pacemakers, programmable shunt valves for \n'
-          'hydrocephalus treatment, or other medical \n'
-          'devices. Do not place this product close to \n'
-          'persons who use such medical devices. Consult \n'
-          'your doctor before using this product if you use \n'
-          'any such medical device.\n'
-          'This product has magnets. Placing magnetic \n'
-          'stripe cards in the vicinity of the product may \n'
-          'affect the magnetism of the card and render it \n'
-          'unusable.\n'
-          'Note about static electricity\n'
-          'If you use the unit when the air is dry, you may \n'
-          'experience discomfort due to static electricity \n'
-          'accumulated on your body. This is not a \n'
-          'malfunction of the unit. You can reduce the \n'
-          'effect by wearing clothes made of natural \n'
-          'materials that do not easily generate static \n'
-          'electricity.\n'
-          'IMPORTANT\n'
-          'The factory default setting of the voice guidance \n'
-          'for this unit is English.\n'
-          'The voice guidance can be heard from the unit in \n'
-          'the following situations:\n'
-          '• When the remaining battery level is low and \n'
-          'recharge is recommended: “Low battery”\n'
-          '• When automatically turning off due to low \n'
-          'battery: “Battery is empty”\n'
-          '• When checking the remaining battery level: \n'
-          '“Battery fully charged” / “Battery about 70%” / \n'
-          '“Battery about 50%”\n'
-          '• When entering pairing mode: “Pairing”\n'
-          'Precautions\n'
-          'The two-dimensional code or the URL on \n'
-          'the cover will help you access the help \n'
-          'guide that describes useful notes or \n'
-          'procedures in details.\n'
-          'On BLUETOOTH® communications\n'
-          '• Microwaves emitting from a Bluetooth device \n'
-          'may affect the operation of electronic medical \n'
-          'devices. Turn off this unit and other Bluetooth \n'
-          'devices in the following locations, as it may \n'
-          'cause an accident:\n'
-          ' – in hospitals, near priority seating in trains, \n'
-          'locations where inflammable gas is present, \n'
-          'near automatic doors, or near fire alarms.\n'
-          '• The audio playback on this unit may be \n'
-          'delayed from that on the transmitting device, \n'
-          'due to the characteristics of Bluetooth wireless \n'
-          'technology. As a result, the sound may not be \n'
-          'in sync with the image when viewing movies or \n'
-          'playing games.\n'
-          'On charging the unit\n'
-          '• Be sure to use the supplied USB Type-C cable.\n'
-          'Notes on wearing the unit\n'
-          '• Because the headphones achieve a tight seal \n'
-          'over the ears, forcibly pressing them against \n'
-          'your ears or quickly pulling them off can result \n'
-          'in eardrum damage. When wearing the \n'
-          'headphones, the speaker diaphragm may \n'
-          'produce a click sound. This is not a \n'
-          'malfunction.\n'
-          'Other notes\n'
-          '• Do not apply weight or pressure to the unit for \n'
-          'long periods, including when it is stored, as it \n'
-          'may cause deformation.\n'
-          '• If you experience discomfort while using the \n'
-          'unit, stop using it immediately.\n'
-          '• If you have any questions or problems \n'
-          'concerning this unit that are not covered in this \n'
-          'manual, please consult your nearest Sony \n'
-          'dealer.\n'
-          'Location of the serial number label\n'
-          'See Fig. \ue311\n'
-          'Specifications\n'
-          'Headset\n'
-          'Power source:\n'
-          'DC 3.7 V: Built-in lithium-ion rechargeable \n'
-          'battery\n'
-          'DC 5.0 V: When charged using USB\n'
-          'Operating temperature:\n'
-          '0 °C to 40 °C (32 °F to 104 °F)\n'
-          'Rated power consumption:\n'
-          '1.4 W\n'
-          'Mass:\n'
-          'Approx. 147 g (5.2 oz)\n'
-          'Included items:\n'
-          'Wireless Stereo Headset (1)\n'
-          'USB Type-C® cable (USB-A to USB-C®) \n'
-          '(approx. 20 cm (7.88 in.)) (1)\n'
-          'Communication specification\n'
-          'Communication system:\n'
-          'Bluetooth Specification version 5.2\n'
-          'Output:\n'
-          'Bluetooth Specification Power Class 1\n'
-          'Frequency band:\n'
-          '2.4 GHz band (2.4000 GHz -  \n'
-          '2.4835 GHz)\n'
-          'Design and specifications are subject to change \n'
-          'without notice.\n'
-          'System requirements for \n'
-          'battery charge using USB\n'
-          'USB AC adaptor\n'
-          'A commercially available USB AC adaptor \n'
-          'capable of supplying an output current of 0.5\xa0A \n'
-          '(500\xa0mA) or more.\n'
-          '• Do not use a USB adaptor that exceeds the \n'
-          'maximum output of 13\xa0W (5\xa0V, 2.6\xa0A).\n'
-          'Compatible iPhone/iPod \n'
-          'models\n'
-          'iPhone SE (3rd generation), iPhone 13 Pro Max, \n'
-          'iPhone 13 Pro, iPhone 13, iPhone 13 mini, \n'
-          'iPhone 12 Pro Max, iPhone 12 Pro, iPhone 12, \n'
-          'iPhone 12 mini, iPhone SE (2nd generation), \n'
-          'iPhone 11 Pro Max, iPhone 11 Pro, iPhone 11, \n'
-          'iPhone XS Max, iPhone XS, iPhone XR, iPhone X, \n'
-          'iPhone 8 Plus, iPhone 8, iPhone 7 Plus, iPhone 7, \n'
-          'iPhone SE, iPhone 6s Plus, iPhone 6s, \n'
-          'iPod touch (7th generation)\n'
-          '(As of May 2022)\n'
-          'Trademarks\n'
-          '• Apple, iPhone, iPod and iPod touch are \n'
-          'trademarks of Apple Inc., registered in the U.S. \n'
-          'and other countries.\n'
-          '• The Bluetooth® word mark and logos are \n'
-          'registered trademarks owned by Bluetooth SIG, \n'
-          'Inc. and any use of such marks by Sony Group \n'
-          'Corporation and its subsidiaries is under \n'
-          'license.\n'
-          '• USB Type-C® and USB-C® are registered \n'
-          'trademarks of USB Implementers Forum.\n'
-          '• All other trademarks and registered trademarks \n'
-          'are trademarks or registered trademarks of \n'
-          'their respective holders. In this manual, ™ and \n'
-          '® marks are not specified.\n'
-          'Licenses\n'
-          '• Use of the Made for Apple badge means that \n'
-          'an accessory has been designed to connect \n'
-          'specifically to the Apple product(s) identified in \n'
-          'the badge, and has been certified by the \n'
-          'developer to meet Apple performance \n'
-          'standards. Apple is not responsible for the \n'
-          'operation of this device or its compliance with \n'
-          'safety and regulatory standards.\n'
-          '• This product contains software that Sony uses \n'
-          'under a licensing agreement with the owner of \n'
-          'its copyright. We are obligated to announce the \n'
-          'contents of the agreement to customers under \n'
-          'requirement by the owner of copyright for the \n'
-          'software. Please access the following URL and \n'
-          'read the contents of the license.\n'
-          'https://rd1.sony.net/help/mdr/sl/23/\n'
-          '• Services offered by third parties may be \n'
-          'changed, suspended, or terminated without \n'
-          'prior notice. Sony does not bear any \n'
-          'responsibility in these sorts of situations.'},
-'''
-
-url = "http://localhost:1234/v1/chat/completions"
-headers = {
-    "Content-Type": "application/json"
-}
-data = {
-    "model": "llama-3.2-3b-instruct",
-    "messages": [
-        {"role": "system", "content": SYS_PROMPT},
-        {"role": "user", "content": RAW_TEXT}
-    ],
-    "temperature": 0.7,
-    "max_tokens": -1,
-    "stream": False
-}
-
-response = requests.post(url, headers=headers, json=data)
-pprint.pprint(response.json()['choices'][0]['message']['content'])
-
-
-''' parse pdf
 import os
+import uuid
+from lib.qdrant_client import get_qdrant_client
+from lib.embedding_models import bi_encoder_model
+from qdrant_client import models
 from pypdf import PdfReader
-import pprint
+from bs4 import BeautifulSoup
+import json
+from tqdm import tqdm
 
-def process_pdf_from_directory(input_directory):
+# ---- TODO used for unit testing ----
+# modify fields based on location of data, name of collection to store it, and data types
+INPUT_DIRECTORY = os.getcwd() + "/data/temp/"
+# valid formats are PDF, HTML, TXT, and JSON
+DATA_FORMAT = "PDF"
+
+SYS_PROMPT = '''Return me a json object with one key being 'summary' which is a 4-5 sentence summary of the text in the queries I pass in. For the summary,
+you can jump straight into the summary, avoid filler words like "this text is about" or "the provided text", etc. MAKE SURE SUMMARIES are in ENGLISH. TRANSLATE 
+IF NEEDED, I DONT WANT SUMMARIES IN ANY OTHER LANGUAGE.
+For the second key, 'keywords', include a list of 5-8 keywords that best fit the text in the queries I pass in.'''
+
+# returns json object from LLM with summary string and keywords list
+def gen_metadata(chunk_text):
+    url = "http://localhost:1234/v1/chat/completions"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": "llama-3.2-3b-instruct",
+        "messages": [
+            {"role": "system", "content": SYS_PROMPT},
+            {"role": "user", "content": chunk_text}
+        ],
+        "temperature": 0.3,
+        "max_tokens": -1,
+        "stream": False
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    structured_response = response.json()['choices'][0]['message']['content']
+    structured_response = json.loads(structured_response)
+    return structured_response
+
+def process_pdf_from_directory(dir_path):
     """
     Scans a directory for PDF files, extracts text, and splits it into chunks by page.
     
@@ -396,10 +52,10 @@ def process_pdf_from_directory(input_directory):
     """
     all_text_chunks = []
 
-    print(f"Scanning for PDF files in '{input_directory}'...")
-    for filename in os.listdir(input_directory):
+    print(f"Scanning for PDF files in '{dir_path}'...")
+    for filename in os.listdir(dir_path):
         if filename.lower().endswith(".pdf"):
-            file_path = os.path.join(input_directory, filename)
+            file_path = os.path.join(dir_path, filename)
             try:
                 reader = PdfReader(file_path)
                 chunks = []
@@ -421,10 +77,186 @@ def process_pdf_from_directory(input_directory):
                 
     return all_text_chunks
 
-if __name__ == "__main__":
-    input_dir = "data/temp"  # Replace with your directory path
-    pdf_chunks = process_pdf_from_directory(input_dir)
-    with open("temp.txt", "w", encoding="utf-8") as f:
-        pprint.pprint(pdf_chunks, stream=f)
+def process_html_from_directory(dir_path):
+    """
+    Scans a directory for .html files, extracts the visible text, and splits it into chunks.
+    
+    Requires `pip install beautifulsoup4`.
+    
+    Returns:
+        A list of dictionaries, where each dictionary contains the source filename,
+        the page title, and a specific chunk of text.
+    """
+    all_text_chunks = []
 
-'''
+    print(f"Scanning for .html files in '{dir_path}'...")
+    for filename in os.listdir(dir_path):
+        if filename.lower().endswith((".html", ".htm")):
+            file_path = os.path.join(dir_path, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    soup = BeautifulSoup(f, 'html.parser')
+                
+                # Extract page title for metadata, if it exists
+                page_title = soup.title.string if soup.title else "No Title"
+
+                # Get all human-readable text from the body
+                # .get_text() is powerful; it strips tags and combines text.
+                # The separator ensures paragraphs are spaced, making chunking reliable.
+                full_text = soup.body.get_text(separator='\n\n', strip=True)
+                
+                all_text_chunks.append({
+                    "source_file": filename,
+                    "title": page_title,
+                    "text": full_text
+                })
+                print(f"  - Extracted from '{filename}'.")
+
+            except Exception as e:
+                print(f"  - ERROR: Failed to process '{filename}': {e}")
+                
+    return all_text_chunks
+
+def process_txt_from_directory(dir_path):
+    """
+    Scans a directory for .txt files, reads their content, and splits it into chunks.
+    
+    Returns:
+        A list of dictionaries, where each dictionary contains the source filename
+        and a specific chunk of text.
+    """
+    all_text_chunks = []
+
+    print(f"Scanning for .txt files in '{dir_path}'...")
+    for filename in os.listdir(dir_path):
+        if filename.lower().endswith(".txt"):
+            file_path = os.path.join(dir_path, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    full_text = f.read()
+                
+                all_text_chunks.append({
+                    "source_file": filename,
+                    "text": full_text
+                })
+                print(f"  - Extracted from '{filename}'.")
+
+            except Exception as e:
+                print(f"  - ERROR: Failed to process '{filename}': {e}")
+                
+    return all_text_chunks
+
+def process_json_from_directory(dir_path):
+    '''
+    expects data represented as a single json object
+    '''
+    all_text_chunks = []
+
+    print(f"Scanning for .json files in '{dir_path}'...")
+    for filename in os.listdir(dir_path):
+        if filename.lower().endswith(".json"):
+            file_path = os.path.join(dir_path, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                # Ensure data is one json object
+                if not isinstance(data, dict):
+                    data = {"data": data}
+
+                payload = {}
+                payload["source_file"] = filename
+                payload["text"] = json.dumps(data, indent=2)
+                all_text_chunks.append(payload)
+                
+                print(f"  - Extracted text from '{filename}'.")
+
+            except Exception as e:
+                print(f"  - ERROR: Failed to process '{filename}': {e}")
+                
+    return all_text_chunks
+
+def upload_to_qdrant(chunks, collection_name):
+    """
+    Main function to orchestrate the PDF processing and uploading workflow.
+    """
+    client = get_qdrant_client()
+    
+    print(f"\nSetting up Qdrant collection: '{collection_name}'")
+
+    # check if collection exists, if not create it
+    try:
+        # Check if the collection already exists
+        client.get_collection(collection_name=collection_name)
+        print(f"Collection '{collection_name}' already exists. Adding data to it.")
+    except Exception as e:
+        # If the collection does not exist, an exception is thrown
+        print(f"Collection '{collection_name}' does not exist. Creating it now.")
+        client.create_collection(
+            collection_name=collection_name,
+            vectors_config=models.VectorParams(
+                size=384,
+                distance=models.Distance.COSINE
+            ),
+        )
+        print("Collection created successfully.")
+
+    print("Collection setup complete.")
+
+    # Convert Text to Vectors (Embeddings) ---
+    embedding_model = bi_encoder_model()
+    
+    print(f"Creating embeddings for {len(chunks)} text chunks...")
+    embeddings_result = embedding_model.embed([item["text"] for item in chunks])
+    print("Embeddings created successfully.")
+    
+    # upload to qdrant
+    print(f"\nUploading {len(chunks)} points to Qdrant...")
+    
+    points_to_upload = []
+    for vector, chunk_data in zip(embeddings_result, chunks):
+        # del chunk_data["text"] # remove raw text from metadata
+        points_to_upload.append(
+            models.PointStruct(
+                id=str(uuid.uuid4()),
+                vector=vector.tolist(),
+                payload=chunk_data
+            )
+        )
+
+    client.upload_points(
+        collection_name=collection_name,
+        points=points_to_upload,
+        batch_size=256
+    )
+
+    print("Upload complete!")
+
+if __name__ == "__main__":
+    data_sources = ["camera_data", "displays_data", "headphone_data", "laptop_data", "phone_data"]
+    data_formats = ["PDF", "HTML", "TXT", "JSON"]
+
+    for data_source in data_sources:
+        for data_format in data_formats:
+            dir_path = os.getcwd() + f"/data/{data_source}/"
+            print(f"\nProcessing data from '{dir_path}' in format '{data_format}'...")
+            if data_format == "PDF":
+                data = process_pdf_from_directory(dir_path)
+            elif data_format == "HTML":
+                data = process_html_from_directory(dir_path)
+            elif data_format == "TXT":
+                data = process_txt_from_directory(dir_path)
+            elif data_format == "JSON":
+                data = process_json_from_directory(dir_path)
+
+            print(f"Generated summaries for data from '{data_source}' in format '{data_format}':")
+            for item in tqdm(data, desc="generating keywords & summaries"):
+                metadata = gen_metadata(item['text'])
+                if "summary" in metadata:
+                    item['summary'] = metadata['summary']
+                if "keywords" in metadata:
+                    item["keywords"] = metadata["keywords"]
+
+            upload_to_qdrant(data, data_source)
+
+        print(f"\nAdding data to '{data_source}' collection completed.")
