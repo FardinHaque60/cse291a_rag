@@ -1,11 +1,11 @@
 # final output generation given final chunks
-from .p2_bi_encoder_rank import bi_encoder_rank
-from .p3_cross_encoder_rerank import cross_encoder_rerank
+from p2_bi_encoder_rank import bi_encoder_rank
+from p3_cross_encoder_rerank import cross_encoder_rerank
 
 # TODO modify processed prompt passed into bi-encoder -> cross encoder, so chunk ranks can be used
 PROCESSED_QUERY = ""
 
-def output_generation(final_chunks: dict) -> str:
+def output_generation(final_chunks: list) -> str:
     '''
         description: simple function to make api call to LLM to generate final output based on reranked chunks.
 

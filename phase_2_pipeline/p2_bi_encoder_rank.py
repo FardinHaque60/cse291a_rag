@@ -2,47 +2,40 @@
 
 from lib.embedding_models import bi_encoder_model
 from lib.qdrant_client import get_qdrant_client
-from lib.constants import COLLECTION_NAME, RESULTS_COUNT
+from lib.constants import RESULTS_COUNT
 
 # TODO modify prompt to run unit test
-PROCESSED_QUERY = "What does the New York times say is the best wireless headphones?"
+PROCESSED_QUERY = {
+    "query": "What does the New York times say is the best wireless headphones?",
+    "collection": "production_data"
+}
 
 # TODO determine what format to give initial rank
-def bi_encoder_rank(processed_user_query: str) -> dict:
+def bi_encoder_rank(processed_user_query: dict) -> dict:
     '''
         description: Given a processed user query, use a bi-encoder model to find and rank relevant document chunks based on similarity.
             - vectorizes query
             - make inference request to qdrant
             - return formatted qdrant response
 
-        input: processed_user_query, processed from previous preprocessing step (str)
+        input: {"query": processed from previous preprocessing step, "collection": what collection to take data from} (dict)
         output: qdrant response in format (TODO)
     '''
     embedding_model = bi_encoder_model()
     client = get_qdrant_client()
 
-    query_vector = next(embedding_model.embed([processed_user_query]))
+    query_vector = next(embedding_model.embed([processed_user_query['query']]))
     search_results = client.query_points(
-        collection_name=COLLECTION_NAME,
+        collection_name="production_data", # processed_user_query['collection'],
         query=query_vector.tolist(),
         limit=RESULTS_COUNT,   
         with_payload=True 
     )
 
-    # TODO format search_results for cross encoder to use
-    
-    # returns a list of ScoredPoint objects, example format:
-    # ScoredPoint(id='37fcf274-8072-4d8e-bde1-1ee375a4b4d6', version=24, score=0.8005285, payload={'source_file': 'wired_article.pdf', 'page': 2}, vector=None, shard_key=None, order_value=None)
-
-    '''
-    # metadata for 
-    metadata = {
-        source_file: str,
-        page_num: int,
-        summary: str (LLM generated summary),
-        keyword: list of str (LLM generated),
-    }
-    '''
+    return [point for point in search_results.points]
 
 if __name__ == "__main__":
-    print(bi_encoder_rank(PROCESSED_QUERY))
+    # print(bi_encoder_rank(PROCESSED_QUERY))
+    items = bi_encoder_rank(PROCESSED_QUERY)
+    # source_files = [point for point in items.points] # payload.get('source_file') 
+    print(items)
