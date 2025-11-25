@@ -1,20 +1,20 @@
+## automated evals for phase 2
 import os
 import json
 import sys
-from fastembed import TextEmbedding
 import time
 from datetime import datetime
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from phase_1_pipeline.client import get_client, EMBEDDING_MODEL_NAME
+from phase_2_pipeline.lib.qdrant_client import get_qdrant_client
+from phase_2_pipeline.lib.embedding_models import bi_encoder_model
 from eval.metric_lib import get_metric_from_relevance, L
-from phase_1_pipeline.inference import retrieval_pipeline
+from phase_2_pipeline.p0_runner import run_pipeline
 
 if __name__ == "__main__":
-    client = get_client()
-    print(f"Initializing embedding model '{EMBEDDING_MODEL_NAME}'...")
-    embedding_model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
-    print("Model initialized.")
+    client = get_qdrant_client()
+    embedding_model = bi_encoder_model()
+    print("Embedding Model initialized.")
 
     json_path = os.path.join(os.getcwd(), "eval", "prompts.json")
     evals_file = []
@@ -41,12 +41,13 @@ if __name__ == "__main__":
             prompts += 1
 
             start = time.time()
-            search_results = retrieval_pipeline(prompt, "production_data", L, client)
+            raw_results = run_pipeline(prompt)
+            search_results = raw_results[1]
             end = time.time()
 
             qdrant_ids = []
             qdrant_files = []
-            for item in search_results.points:
+            for item in search_results:
                 qdrant_ids.append(item.id)
                 qdrant_files.append(item.payload["source_file"]) # check if field exists
 
@@ -62,11 +63,12 @@ if __name__ == "__main__":
             # prepare content to append
             entry = {
                 "prompt": prompt,
+                "llm_response": raw_results[0],
                 "qdrant_ids": qdrant_ids,
                 "gold_set": gold_ids,
                 "qdrant_files": qdrant_files,
                 "gold_files": gold_file,
-                "metrics": metrics
+                "metrics": metrics,
             }
 
             results.append(entry)
@@ -80,7 +82,7 @@ if __name__ == "__main__":
     os.makedirs(out_dir, exist_ok=True)
     if 'metrics_file_path' not in globals():
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        metrics_file_path = os.path.join(out_dir, f"{timestamp}_metrics_phase1.json")
+        metrics_file_path = os.path.join(out_dir, f"{timestamp}_metrics_phase2.json")
 
     with open(metrics_file_path, "a", encoding="utf-8") as out_f:
         json.dump(results, out_f, ensure_ascii=False, indent=2)
