@@ -1,6 +1,11 @@
-from .constants import EMBEDDING_MODEL_NAME, RERANKER_MODEL_NAME
 from fastembed import TextEmbedding
 from fastembed.rerank.cross_encoder import TextCrossEncoder
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from phase_2_pipeline.lib.constants import EMBEDDING_MODEL_NAME, RERANKER_MODEL_NAME
 
 def bi_encoder_model():
     bi_encoder_model = TextEmbedding(EMBEDDING_MODEL_NAME)

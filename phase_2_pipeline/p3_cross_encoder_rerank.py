@@ -1,8 +1,12 @@
 # cross encoder rerank for initial candidate chunks
-
-from p2_bi_encoder_rank import bi_encoder_rank
-from lib.embedding_models import cross_encoder_model
+import os
+import sys
 from pprint import pprint
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from phase_2_pipeline.p2_bi_encoder_rank import bi_encoder_rank
+from phase_2_pipeline.lib.embedding_models import cross_encoder_model
 
 # TODO modify prompt to run unit test
 PROCESSED_QUERY = {
@@ -30,7 +34,7 @@ def cross_encoder_rerank(initial_chunks: list, processed_query: str) -> dict:
     initial_chunk_summaries = []
     for item in initial_chunks:
         # qdrant_ids.append(point.id)
-        initial_chunk_summaries.append(item.payload["source_file"]) # change field for different reranking criteria
+        initial_chunk_summaries.append(item.payload["source_file"]) # TODO change field for different reranking criteria
 
     score = cross_encoder.rerank(processed_query['query'], initial_chunk_summaries)
     scores = [i for i in score]

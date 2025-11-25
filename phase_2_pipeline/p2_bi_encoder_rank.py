@@ -1,8 +1,12 @@
 # run bi encoder and do initial similarity search for candidate chunks
+import sys
+import os
 
-from lib.embedding_models import bi_encoder_model
-from lib.qdrant_client import get_qdrant_client
-from lib.constants import RESULTS_COUNT
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from phase_2_pipeline.lib.embedding_models import bi_encoder_model
+from phase_2_pipeline.lib.qdrant_client import get_qdrant_client
+from phase_2_pipeline.lib.constants import RESULTS_COUNT
 
 # TODO modify prompt to run unit test
 PROCESSED_QUERY = {

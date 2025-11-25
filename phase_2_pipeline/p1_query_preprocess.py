@@ -1,12 +1,11 @@
 # query preprocess module
-from google import genai
 from pydantic import BaseModel, Field
-from dotenv import load_dotenv
-import os
 import json
+import os
+import sys
 
-load_dotenv()  # Loads variables from .env into environment
-api_key = os.getenv("GEMINI_API_KEY")
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from phase_2_pipeline.lib.gemini_client import get_gemini_client
 
 class ProcessedQuery(BaseModel):
     query: str = Field(description="query with additional information using original query.")
@@ -49,7 +48,7 @@ def query_preprocess(raw_user_query: str) -> str:
         input: raw user query.
         output: processed user query.
     '''
-    client = genai.Client(api_key=api_key)
+    client = get_gemini_client()
 
     response = client.models.generate_content(
         model="gemini-2.5-flash-lite",
