@@ -1,7 +1,12 @@
 # cse291a_rag
 RAG project for cse 291a fall 2025
 
-## getting started
+## running the program
+### running with docker
+1. to build the container ```docker build -t my-python-app .```
+2. run the container ```docker run -it --env-file .env my-python-app```. this will start a shell inside the docker container to run commands from
+
+### running locally with venv
 repo uses a python `venv` to manage dependencies. python version `>= 3.12.8` needed.
 follow the below steps for the initial `venv` set up once the repo is cloned on your computer.
 1. run `python -m venv venv` to create the venv
@@ -11,8 +16,5 @@ follow the below steps for the initial `venv` set up once the repo is cloned on 
 
 clean up: to deactivate the `venv` once finished using, run `deactivate` to turn it off.
 
-// TODO maybe add instructions for windows if commands are different from mac?
-
 ## using open source rags (phase 1)
-visit the `README.md` of any directories for open source RAGs (ex. `qdrant/`)
-note: some of these directories will require API keys as they are making requests to access the cloud database.
+visit the `README.md` of any directories for open source RAGs (ex. `phase_1_pipeline/`)
