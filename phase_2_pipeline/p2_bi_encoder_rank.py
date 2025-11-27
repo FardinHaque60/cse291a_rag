@@ -30,7 +30,7 @@ def bi_encoder_rank(processed_user_query: dict) -> dict:
 
     query_vector = next(embedding_model.embed([processed_user_query['query']]))
     search_results = client.query_points(
-        collection_name="production_data", # processed_user_query['collection'],
+        collection_name=processed_user_query['collection'],
         query=query_vector.tolist(),
         limit=RESULTS_COUNT,   
         with_payload=True 

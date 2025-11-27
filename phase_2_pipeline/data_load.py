@@ -1,13 +1,16 @@
 import requests
 import os
+import sys
 import uuid
-from lib.qdrant_client import get_qdrant_client
-from lib.embedding_models import bi_encoder_model
 from qdrant_client import models
 from pypdf import PdfReader
 from bs4 import BeautifulSoup
 import json
 from tqdm import tqdm
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from phase_2_pipeline.lib.qdrant_client import get_qdrant_client
+from phase_2_pipeline.lib.embedding_models import bi_encoder_model
 
 # ---- TODO used for unit testing ----
 # modify fields based on location of data, name of collection to store it, and data types
@@ -70,6 +73,8 @@ def process_pdf_from_directory(dir_path):
                         "page": i+1,
                         "text": text 
                     })
+                    if i > 50:
+                        break
                 print(f"  - Extracted {len(chunks)} text chunks from '{filename}'.")
 
             except Exception as e:
@@ -236,6 +241,8 @@ if __name__ == "__main__":
     data_sources = ["camera_data", "displays_data", "headphone_data", "laptop_data", "phone_data"]
     data_formats = ["PDF", "HTML", "TXT", "JSON"]
 
+    data_sources = ["headphone_data/articles", "headphone_data/manuals", "laptop_data/HTML", "laptop_data/PDF"]
+
     for data_source in data_sources:
         for data_format in data_formats:
             dir_path = os.getcwd() + f"/data/{data_source}/"
@@ -251,12 +258,13 @@ if __name__ == "__main__":
 
             print(f"Generated summaries for data from '{data_source}' in format '{data_format}':")
             for item in tqdm(data, desc="generating keywords & summaries"):
-                metadata = gen_metadata(item['text'])
+                metadata = gen_metadata(item['text'][:2000])
                 if "summary" in metadata:
                     item['summary'] = metadata['summary']
                 if "keywords" in metadata:
                     item["keywords"] = metadata["keywords"]
 
-            upload_to_qdrant(data, data_source)
+            collection_name = data_source.split("/")
+            upload_to_qdrant(data, collection_name[0])
 
         print(f"\nAdding data to '{data_source}' collection completed.")

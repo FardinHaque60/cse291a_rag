@@ -7,6 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from phase_2_pipeline.p2_bi_encoder_rank import bi_encoder_rank
 from phase_2_pipeline.lib.embedding_models import cross_encoder_model
+from phase_2_pipeline.lib.constants import FINAL_COUNT
 
 # TODO modify prompt to run unit test
 PROCESSED_QUERY = {
@@ -34,15 +35,15 @@ def cross_encoder_rerank(initial_chunks: list, processed_query: str) -> dict:
     initial_chunk_summaries = []
     for item in initial_chunks:
         # qdrant_ids.append(point.id)
-        initial_chunk_summaries.append(item.payload["source_file"]) # TODO change field for different reranking criteria
+        initial_chunk_summaries.append(item.payload.get("text"))  # Use empty string if "summary" not present
 
     score = cross_encoder.rerank(processed_query['query'], initial_chunk_summaries)
     scores = [i for i in score]
 
     scored_summaries = list(zip(initial_chunks, scores))
-    scored_summaries.sort(key=lambda x: x[1])
+    scored_summaries.sort(key=lambda x: x[1], reverse=True)
     # Return the sorted summaries and their scores
-    return scored_summaries
+    return scored_summaries[:FINAL_COUNT]
 
 if __name__ == "__main__":
     # call bi_encoder_rank to get initial candidate chunks
