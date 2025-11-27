@@ -86,4 +86,4 @@ if __name__ == "__main__":
         json.dump(results, out_f, ensure_ascii=False, indent=2)
         out_f.write("\n\n")
     
-    print("metrics wrote to out/ directory")
+    print(f"metrics wrote to {metrics_file_path}")
