@@ -1,7 +1,11 @@
-# phase 2 pipeline
+# phase 2
 
-- folder contains the pipeline for all the changes needed in phase 2
-- full pipeline can be run with `0_runner.py`
-- pipeline stages are prefixed with a number with file format: `pn_{stage}.py`
-- `data_load.py` is used to load data into qdrant vector storage, the runner stages will use the data in storage for inferencing
-- see `phase_2_eval` dir to see how pipeline is being used and how it is performing
+## running with custom queries
+1. modify the `QUERIES` variable in `phase_2_pipeline/p0_runner.py` with your queries
+2. run `python phase_2_pipeline/p0_runner.py` to run the pipeline, see results in `phase_2_pipeline/results/`
+
+## data upload pipeline
+<img src="images/phase2_data_pipeline.png" alt="Data Upload Pipeline" width="500px">
+
+## inference pipeline
+<img src="images/phase2_inference_pipeline.png" alt="Inference Pipeline" width="500px">

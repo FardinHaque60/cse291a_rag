@@ -8,7 +8,6 @@ from phase_2_pipeline.p2_bi_encoder_rank import bi_encoder_rank
 from phase_2_pipeline.p3_cross_encoder_rerank import cross_encoder_rerank
 from phase_2_pipeline.lib.gemini_client import get_gemini_client
 from phase_2_pipeline.lib.constants import LLM_CHUNKS
-import pprint
 
 SYS_PROMPT = '''You are tasked with generating the final response in a RAG system.
 Your task is to generate a coherent and thoughtfully crafted response that answers the query correctly in 3-5 lines based on the context provided. 
@@ -38,7 +37,7 @@ def output_generation(final_chunks: list, query) -> str:
     for chunk in final_chunks:
         chunk_list.append(chunk[0])
         if chunk_count < LLM_CHUNKS:
-            chunk_text.append(chunk[0].payload.get("text")[:500]) # TODO change to text once data is uploaded
+            chunk_text.append(chunk[0].payload.get("text")[:800]) # TODO change to text once data is uploaded
         chunk_count += 1
 
     query_for_llm = """<user_query>
@@ -48,9 +47,6 @@ def output_generation(final_chunks: list, query) -> str:
     {context}
     </context>
     """.format(query=query, context="\n".join(chunk_text))
-
-    with open("query_for_llm.txt", "w") as f:
-        pprint.pprint(query_for_llm, stream=f)
 
     response = client.models.generate_content(
         model="gemini-2.0-flash-lite",
