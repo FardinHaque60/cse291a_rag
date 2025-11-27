@@ -1,10 +1,12 @@
 # phase 1
 files in this directory are related to phase 1, using qdrant by itself to perform RAG.
 
-## pipeline overview
-1. load data from data sources to qdrant collection with `python phase_1_pipeline/data_load.py`
-    - data is loaded by embedding the entire data sources and storing the vectorized version
-    - PDFs are chunked by page, so each page is vectorized and stored. other data sources are saved whole though
-2. run retrieval with `python phase_1_pipeline/inference.py`
-    - performs cosine similarity search using embedded query with vector storage entries
-    - returns retrieved chunks (w/ metadata information) and latency information
+## running with custom queries
+1. modify the `QUERIES` variable in `phase_1_pipeline/inference.py` with your queries
+2. run `python phase_1_pipeline/inference.py` to run the pipeline, see results in `phase_1_pipeline/results/`
+
+## data upload pipeline
+<img src="images/phase1_data_pipeline.png" alt="Data Upload Pipeline" width="500px">
+
+## inference pipeline
+<img src="images/phase1_inference_pipeline.png" alt="Inference Pipeline" width="500px">
