@@ -4,11 +4,12 @@ import json
 import sys
 import time
 from datetime import datetime
+from tqdm import tqdm
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from phase_2_pipeline.lib.qdrant_client import get_qdrant_client
 from phase_2_pipeline.lib.embedding_models import bi_encoder_model
-from eval.metric_lib import get_metric_from_relevance, L
+from eval.metric_lib import get_metric_from_relevance
 from phase_2_pipeline.p0_runner import run_pipeline
 
 if __name__ == "__main__":
@@ -16,7 +17,7 @@ if __name__ == "__main__":
     embedding_model = bi_encoder_model()
     print("Embedding Model initialized.")
 
-    json_path = os.path.join(os.getcwd(), "eval", "prompts.json")
+    json_path = os.path.join(os.getcwd(), "eval", "prompts2.json")
     evals_file = []
     try:
         with open(json_path, "r", encoding="utf-8") as f:
@@ -36,12 +37,12 @@ if __name__ == "__main__":
         "nDCG@K": 0,
         "Latency (milliseconds)": 0
     }
-    for category in evals_file:
+    for category in tqdm(evals_file, desc="processing categories"):
         for prompt, gold_ids, gold_file in zip(category["prompts"], category["gold_set"], category["gold_files"]):
             prompts += 1
 
             start = time.time()
-            raw_results = run_pipeline(prompt)
+            raw_results = run_pipeline(prompt, category["category"] + "_data")
             search_results = raw_results[1]
             end = time.time()
 
