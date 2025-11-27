@@ -1,0 +1,447 @@
+[
+  {
+    "prompt": "What does the New York times say is the best wireless headphones?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "eb5e01ab-4f05-494d-bde9-532426ce10bb",
+      "ab9a1bcd-dd32-4494-aeca-3fe055e9e53e",
+      "7e867df3-8ee4-4703-a87e-cafb8c93a6a4",
+      "498637aa-12f3-47ed-964d-6e450348ad6f",
+      "22997007-e218-40c6-a5f9-f95720bd5b10",
+      "ce73cdb4-d2e7-439d-b9b5-8ee7f051e292",
+      "0d990841-95e1-45e5-b148-d074c89a84d5",
+      "b445192f-4126-48da-a58a-35893b55d4fe",
+      "b47896cc-7cb5-451e-9d08-d81d9dfe6157",
+      "5a70fb9c-10dd-4042-989a-2185386ce69d"
+    ],
+    "gold_set": [
+      "7e867df3-8ee4-4703-a87e-cafb8c93a6a4"
+    ],
+    "qdrant_files": [
+      "soundguys_review.pdf",
+      "soundguys_review.pdf",
+      "nytimes_review.txt",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf"
+    ],
+    "gold_files": "nytimes_review.txt",
+    "metrics": {
+      "Reciprocal Rank": 0.3333333333333333,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.5,
+      "Latency (milliseconds)": 3497.246
+    }
+  },
+  {
+    "prompt": "I am considering buying the Sony XM4 headphones and I had some questions before I buy them. What is the battery life on these, what charger do they support (usb c?), is there any control on the noise cancelling, is there an option to use it wired, what color options are there?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "6db85199-9e5f-4c1d-ad12-587a46482b6f",
+      "4c1c92ef-2982-4a96-b276-0c580e528009",
+      "fdcfee00-96bf-4302-be29-772edb3727b8",
+      "50b1eb7d-ac41-4266-8567-9b680240c613",
+      "c73205dc-9796-4480-ac7a-63e9f63ff64a",
+      "93384362-5a97-4d75-a1a3-7ba4231d8d61",
+      "a8f40565-e459-4412-9fd4-a54ff5e31baf",
+      "1d5e8720-379b-43dd-aeea-e1f8ff3c22b7",
+      "498637aa-12f3-47ed-964d-6e450348ad6f",
+      "3ad84619-a1e1-4f07-9f3a-285b3fd7c5a0"
+    ],
+    "gold_set": [
+      "6db85199-9e5f-4c1d-ad12-587a46482b6f"
+    ],
+    "qdrant_files": [
+      "xm4_man.pdf",
+      "soundguys_review.pdf",
+      "wired_article.pdf",
+      "wired_article.pdf",
+      "wired_article.pdf",
+      "wired_article.pdf",
+      "wired_article.pdf",
+      "wired_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf"
+    ],
+    "gold_files": "xm4_man.pdf",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3748.069
+    }
+  },
+  {
+    "prompt": "I'm thinking of getting an ASUS ROG gaming laptop, how much would it cost?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "27156f7d-4efe-44ba-97cf-217240fd3591",
+      "245ae41d-d22a-410f-865b-de15d68d7d5f",
+      "d082903a-eae4-47fb-8463-0e492286c310",
+      "4bca60d1-4835-48fb-8fb7-983a82c79940",
+      "d99fd410-b86a-4ca9-a77f-82b846d779fd",
+      "113cbc28-641a-44dc-af94-50ad0605fa2d",
+      "b0be3e77-d843-4175-8a69-05b8670f906d",
+      "f991d5e2-d5eb-4abc-adf6-7f24a7cd322d",
+      "24708283-cf3c-4732-8bd3-1191592430a2",
+      "da8475e1-74f1-4a9b-8cea-d8d267e9a0a8"
+    ],
+    "gold_set": [
+      "d99fd410-b86a-4ca9-a77f-82b846d779fd"
+    ],
+    "qdrant_files": [
+      "ASUS ROG Zephyrus G16 (2025) GU605.html",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf"
+    ],
+    "gold_files": "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0.2,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.5967557363289646,
+      "Latency (milliseconds)": 3557.645
+    }
+  },
+  {
+    "prompt": "The battery on my HP x360 does not charge to full capacity. What options do I have to fix it?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "a934db7f-f599-4502-9263-1bb0cac4727f",
+      "a0bf510f-45e8-489a-924b-7f908a12cc76",
+      "ad0b9525-f5ab-4fcd-acb1-de680ac9c521",
+      "a2e0e06e-a77c-4f74-8c52-0e954e50696d",
+      "23709d9f-0936-40da-afc9-40c8d13a8bde",
+      "d2577c5e-f4ba-4c60-a6b8-77394a2d028d",
+      "18679a5a-c25a-44ad-94c7-2faaf1f1b525",
+      "610e7a6a-c746-4908-ad79-e35dad25030a",
+      "a7bbbe10-65bc-458e-b0f1-7f1207b9f000",
+      "9b927e6a-4afc-4f0d-b30e-bba486a4c4db"
+    ],
+    "gold_set": [
+      "e8fb9fca-fe80-485b-8bf4-2828d5359e4b",
+      "2f7960bf-d554-4819-8a81-b7252807b444"
+    ],
+    "qdrant_files": [
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360.pdf",
+      "HP Spectre x360.pdf",
+      "HP Spectre x360.html",
+      "HP Spectre x360 2-in-1 Laptop.html"
+    ],
+    "gold_files": "HP Spectre x360 service manual.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3788.147
+    }
+  },
+  {
+    "prompt": "After I replace my Samsung S25 Ultra battery, how do I reset the battery cycle count?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "bc5b4693-9d8f-4921-80eb-f92f97bcf764",
+      "2ef52ac2-0db8-49c5-92b0-7d4b7e816f4f",
+      "2fb6a5c3-e27d-438f-9537-bc1380c91db4",
+      "f7614904-2dc2-4558-9bc0-1e57cf53a0aa",
+      "85e8b492-717c-498f-a690-f8d882d3af5b",
+      "fb7551da-ffd1-4948-8947-6e9127db9c2f",
+      "0c33a327-6d4f-4a09-8fb9-25e6c1a7770a",
+      "39bdb819-731c-4492-bbae-0723948107b2",
+      "350019ff-22fa-4973-867d-cfbc5182030e",
+      "b146e271-5620-44ce-aa76-325a769dd16a"
+    ],
+    "gold_set": [
+      "bc5b4693-9d8f-4921-80eb-f92f97bcf764",
+      "37daddb4-86d6-4422-b998-fe8e71bb100a",
+      "7246658b-41d2-4b2a-b57d-62263980f130"
+    ],
+    "qdrant_files": [
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_User_Guide.pdf",
+      "Samsung_A56_5G_Repair_Guide.pdf",
+      "Samsung_A56_5G_Repair_Guide.pdf",
+      "Samsung_A56_5G_Repair_Guide.pdf"
+    ],
+    "gold_files": "Samsung_S25_Ultra_Repair_Guide.pdf",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 0.3333333333333333,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3580.585
+    }
+  },
+  {
+    "prompt": "I'm thinking of buying the new iPhone Air, and was wondering what's the weight of the phone?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "b040f822-3c81-46ee-9afd-1f17862ba870",
+      "b89fa9b8-dc82-45fd-9be4-dd4cf42f27d4",
+      "91a06c02-e6ff-4a5f-b776-200d2f5933f6",
+      "9aa64165-4b96-46af-b2ea-8f4afaad018c",
+      "ccdc4d85-fb51-4b8b-bd70-fdcee5e03358",
+      "325664b6-ee83-4f38-8f1f-fb2ac37e4cf4",
+      "84617d87-ab10-4b46-8077-6033a75d69a8",
+      "d07619b1-e93c-4744-9cb1-3fd76d9843a8",
+      "efeced26-01e6-43bc-a2a7-1ba857368b54",
+      "34ec5752-f906-48f1-8b1b-4a31f38b3d8f"
+    ],
+    "gold_set": [
+      "b040f822-3c81-46ee-9afd-1f17862ba870"
+    ],
+    "qdrant_files": [
+      "iPhone Air - Tech Specs - Apple Support.html",
+      "iPhone Air - Tech Specs - Apple Support.html",
+      "iPhone 16e - Tech Specs - Apple Support.html",
+      "iPhone 16e - Tech Specs - Apple Support.html",
+      "iPhone 17 - Tech Specs - Apple Support.html",
+      "iPhone 17 - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro Max - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro Max - Tech Specs - Apple Support.html"
+    ],
+    "gold_files": "iPhone Air - Tech Specs - Apple Support.html",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3710.143
+    }
+  },
+  {
+    "prompt": "How do I set timer for Sony ZV-E10?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "4bc0fa27-cf2f-4950-9558-1b6db542e6ab",
+      "14f7b1ea-affa-40ba-8221-15cb6d83f6a7",
+      "b5658498-b58a-4835-a985-0f9b775b65c5",
+      "4e37e034-d970-48f2-aaf0-b25576a81e69",
+      "d82ca6e3-1e91-4a10-a78f-c03b3a8ee421",
+      "3f95be0a-106f-437b-a7d6-34c242ee6490",
+      "ad2f92ae-1af1-428d-bfef-023ef8f4b1ff",
+      "a7b853bc-c9e7-412e-9376-b5c1547bbe0f",
+      "0a9559d7-f46a-4ce3-aedf-69c7e0687362",
+      "8af40ad2-3bc4-43ce-adb6-f8ddc863f2f0"
+    ],
+    "gold_set": [
+      "4bc0fa27-cf2f-4950-9558-1b6db542e6ab",
+      "0a9559d7-f46a-4ce3-aedf-69c7e0687362"
+    ],
+    "qdrant_files": [
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf"
+    ],
+    "gold_files": "zv-e10_manual.pdf",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 0.5,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3595.994
+    }
+  },
+  {
+    "prompt": "Does the Sony ILCA-77M2 support wireless flash control and NFC pairing?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "9c79658e-6281-4deb-8912-5b57d0e6476f",
+      "68dcaa3b-0809-400e-a75a-fd5dd887e636",
+      "31e031ac-1295-48e2-a76e-aead3d970b57",
+      "dc3d98f6-75e7-495d-9229-c8177ea2d987",
+      "ac5ba197-a24c-49b8-a25d-d872a81a0076",
+      "84d00b54-e9ee-478f-b849-8cdf12550499",
+      "5663eea3-4d97-4b8d-9ae7-ec9f052c8e3a",
+      "3bb9f71b-08fe-447c-a85a-b6509fb91dcf",
+      "6eae8149-c2f9-48ff-b239-2f6319048506",
+      "6fa89d38-a8e1-4e0f-b3bc-f3da5292e75d"
+    ],
+    "gold_set": [
+      "9c79658e-6281-4deb-8912-5b57d0e6476f"
+    ],
+    "qdrant_files": [
+      "ilca-77m2_specifications.json",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf"
+    ],
+    "gold_files": "ilca-77m2_specifications.json",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3426.566
+    }
+  },
+  {
+    "prompt": "How big and how much weight is for the camera Sony ILCE-7m4? What's provided with the camera in the box?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "9e22ddf3-1900-4a88-83d5-8de891a725e8",
+      "875b4edb-0771-4054-b9b1-d014af21c1cf",
+      "f2c684c2-5d29-4c04-91f3-37ccf8ecf4a6",
+      "0b44e6d7-5a6f-4293-8dec-920566dc7199",
+      "d9979439-7bea-4d67-ab2f-c0fe9d703d7a",
+      "5fa7a2c0-92b9-4846-a6d7-59bf76469723",
+      "2705810a-5ec5-4670-81af-3a6de3e4fef9",
+      "1f140e2d-31c9-40bd-a300-2a1ed61f662a",
+      "da27f93e-515e-49d0-9095-652a4b873c4c",
+      "2d9834a2-5569-4751-9cff-5933d476c245"
+    ],
+    "gold_set": [
+      "36caa18a-fa65-4887-93d5-7cdccc790408"
+    ],
+    "qdrant_files": [
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m2_specifications.json",
+      "ilce-7m3_manual.pdf",
+      "ilce-7m3_manual.pdf",
+      "ilce-7m3_manual.pdf"
+    ],
+    "gold_files": "ilce-7m4_specifications.json",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 0.0,
+      "Latency (milliseconds)": 3594.354
+    }
+  },
+  {
+    "prompt": "How do I change the channel on a Samsung LCD TV?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "323127a1-66aa-4692-ba0f-b499ed346ff0",
+      "28ed64a1-33a4-4267-8176-a06e83fb50b8",
+      "86a506fc-4cbb-4308-807b-8839155e8dbb",
+      "2308e838-dff8-416e-8ff8-0696ba9dcbdd",
+      "271807a3-fda8-4bbe-bf89-f0c3be437300",
+      "4f845dc3-83c9-4b13-99c4-f7743262505c",
+      "996830fe-af91-4b53-b8fa-153af6d39d4d",
+      "57fd0f2b-4f40-4617-8c74-7c51a486da35",
+      "72de4656-b0b5-4580-9b4c-78f98bfd4df6",
+      "1571c434-0bd6-4cfb-9047-4ffa9ac177e1"
+    ],
+    "gold_set": [
+      "8613d236-9b91-46da-89b2-20bd9289f6cd"
+    ],
+    "qdrant_files": [
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-22795A-690_EM_OSNATSCB_NA_ENG-US_250430.0.pdf",
+      "BN81-22795A-690_EM_OSNATSCB_NA_ENG-US_250430.0.pdf"
+    ],
+    "gold_files": "[LD550-ZA]BN68-04313A-00ENG-0223.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 0.0,
+      "Latency (milliseconds)": 3829.309
+    }
+  },
+  {
+    "prompt": "How do I setup an AORUS gaming monitor?",
+    "llm_response": "hi",
+    "qdrant_ids": [
+      "f0b97248-4452-47b5-abc7-4ef78ca63c6c",
+      "5f7171e9-b1ae-4afa-9d6c-6975b4551257",
+      "1ec3ef34-6671-4261-8616-7b3b5130e65c",
+      "da8110d4-396c-42f1-a3b9-e88fc44f03c7",
+      "ff307944-ee7d-422f-aa1c-d3a4c03b4551",
+      "97993c4f-8a4f-4fe1-88a1-e58069b63b7d",
+      "869bb6e5-2d6a-4502-a767-11ba884bff4a",
+      "12a101d9-2418-414f-862e-2f18ebd1e996",
+      "ebc090d7-c3a5-4974-9277-711442a39952",
+      "9ff24678-240f-4a47-b735-70ce2a532908"
+    ],
+    "gold_set": [
+      "1b2699c7-5afb-4dc8-8e12-0d64da1907c4",
+      "c8032e46-3360-44ab-bddd-c98dc9d0f624",
+      "7dc4801f-9407-4853-8ffe-076b8362a107",
+      "04d1e43b-ba74-42ac-b22e-75043d1d6db5",
+      "9466fe47-6e49-46c3-8249-a90b0945e141"
+    ],
+    "qdrant_files": [
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "GIGABYTE_G27F_UM_EN_0410_2.00.pdf",
+      "GIGABYTE_G27F_UM_EN_0410_2.00.pdf",
+      "GIGABYTE_G27F_UM_EN_0410_2.00.pdf",
+      "GBT-G34WQC-UM-EN-20200616.pdf",
+      "GBT-G34WQC-UM-EN-20200616.pdf"
+    ],
+    "gold_files": "AORUS_FI32U_UM-English.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 3427.276
+    }
+  },
+  {
+    "Reciprocal Rank": 0.503,
+    "Precision@K": 0.127,
+    "Recall@K": 0.53,
+    "nDCG@K": 0.736,
+    "Latency (milliseconds)": 3614.121
+  }
+]
+
