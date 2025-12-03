@@ -10,14 +10,24 @@ INPUT_FILE = "eval/out/20251126_163345_metrics_phase2_llm_responses.json"
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 SYS_PROMPT = """
-You are a strict judge. Your task is to evaluate the response based on the user query on a likert scale from 1 to 5.
-1 - Poor: The response is irrelevant or incorrect.
-2 - Fair: The response has some relevance but lacks accuracy or completeness.
-3 - Good: The response is generally accurate but may miss some details.
-4 - Very Good: The response is accurate and covers most of the important details.
-5 - Excellent: The response is highly accurate, comprehensive, and directly addresses the user query using useful information.
-
-The users query will be found in the <user_query> tags and the response will be found in the <response> tags.
+You are a judge that grades the response of a RAG system based on a given query. Your task is to evaluate the response in term of relevance to the user query on a scale from 1 to 5. 
+Follow the criteria descriptions for each score closely when determining a grade.
+<criteria>
+1 - Poor: The response is completely irrelevant or incorrect. This should only be given for the most useless response with close to 0% relevance of the query. 
+2 - Fair: The response has some relevance but lacks accuracy or completeness. This should be used for responses with around 25% relevance to the query. 
+3 - Good: The response is generally accurate but may miss some details. This should be used for responses with around 50% relevance to the query. 
+4 - Very Good: The response is accurate and covers most of the important details. This should be used for responses with around 75% relevance to the query. 
+5 - Excellent: The response is highly accurate, comprehensive, and directly addresses the user query using useful information. Use this for the best responses which completely and correctly answer the query.
+</criteria>
+<instruction>
+The user query will be found in the <user_query> tags and the response will be found in the <response> tags. 
+IMPORTANT: Make sure that you give a reasoning for your grade in 1 line in addition to the grade.
+Make sure you use the following output format 
+</instruction> 
+<output_format>
+Reasoning: [1 sentence validating the response and reasoning on the rating]
+Rating: [NUMBER] 
+</output_format> 
 """
 
 def rate_llm_responses(input_file, fw):
@@ -41,7 +51,7 @@ def rate_llm_responses(input_file, fw):
         {response}
         </response>
         """.format(query=query, response=llm_response)
-
+        print("Running Query ")
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=[
@@ -49,7 +59,7 @@ def rate_llm_responses(input_file, fw):
                 {"role": "user", "parts": [{"text":query_for_llm}]},
             ],
         )
-
+        print(f"Received Rating: {response.text}")
         fw.write(f"Prompt: {query}\nResponse: {llm_response}\nGemini Rating: {response.text}\n{'-'*40}\n")
 
 if __name__ == "__main__":
