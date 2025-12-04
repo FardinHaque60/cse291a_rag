@@ -62,6 +62,14 @@ def query_preprocess(raw_user_query: str) -> str:
         },
     )
 
+    # report token metrics
+    with open("eval/out/token_cost.txt", "a") as f:
+        f.write("-" * 40 + "\n")
+        f.write(f"prompt: {raw_user_query}\n")
+        f.write(f"query preprocess prompt tokens: {response.usage_metadata.prompt_token_count}\n")
+        f.write(f"query preprocess output tokens: {response.usage_metadata.candidates_token_count}\n")
+        f.write("\n")
+
     query_dict = json.loads(response.text)
     return query_dict
 

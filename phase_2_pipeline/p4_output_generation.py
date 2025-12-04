@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from phase_2_pipeline.p2_bi_encoder_rank import bi_encoder_rank
 from phase_2_pipeline.p3_cross_encoder_rerank import cross_encoder_rerank
 from phase_2_pipeline.lib.gemini_client import get_gemini_client
-from phase_2_pipeline.lib.constants import LLM_CHUNKS, GEMINI_API_KEY
+from phase_2_pipeline.lib.constants import LLM_CHUNKS
 
 SYS_PROMPT = '''You are tasked with generating the final response in a RAG system.
 Your task is to generate a coherent and thoughtfully crafted response that answers the query correctly in 3-5 lines based on the context provided. 
@@ -60,6 +60,11 @@ def output_generation(final_chunks: list, query) -> str:
             {"role": "user", "parts": [{"text":query_for_llm}]},
         ],
     )
+
+    # report token metrics
+    with open("eval/out/token_cost.txt", "a") as f: 
+        f.write(f"llm generation prompt tokens: {response.usage_metadata.prompt_token_count}\n")
+        f.write(f"llm generation output tokens: {response.usage_metadata.candidates_token_count}\n")
 
     return response.text, chunk_list
     # return "hi", [chunk[0] for chunk in final_chunks]
