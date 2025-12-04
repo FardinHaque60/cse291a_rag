@@ -35,7 +35,7 @@ def cross_encoder_rerank(initial_chunks: list, processed_query: str) -> dict:
     initial_chunk_summaries = []
     for item in initial_chunks:
         # qdrant_ids.append(point.id)
-        initial_chunk_summaries.append(item.payload.get("text"))  # Use empty string if "summary" not present
+        initial_chunk_summaries.append(item.payload.get("source_file"))  # Use empty string if "summary" not present
 
     score = cross_encoder.rerank(processed_query['query'], initial_chunk_summaries)
     scores = [i for i in score]

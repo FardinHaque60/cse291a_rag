@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from phase_2_pipeline.p2_bi_encoder_rank import bi_encoder_rank
 from phase_2_pipeline.p3_cross_encoder_rerank import cross_encoder_rerank
 from phase_2_pipeline.lib.gemini_client import get_gemini_client
-from phase_2_pipeline.lib.constants import LLM_CHUNKS
+from phase_2_pipeline.lib.constants import LLM_CHUNKS, GEMINI_API_KEY
 
 SYS_PROMPT = '''You are tasked with generating the final response in a RAG system.
 Your task is to generate a coherent and thoughtfully crafted response that answers the query correctly in 3-5 lines based on the context provided. 
@@ -47,6 +47,11 @@ def output_generation(final_chunks: list, query) -> str:
     {context}
     </context>
     """.format(query=query, context="\n".join(chunk_text))
+
+    '''with open("temp.txt", "a") as f:
+        f.write(query_for_llm)
+        f.write(GEMINI_API_KEY)
+    '''
 
     response = client.models.generate_content(
         model="gemini-2.0-flash-lite",
