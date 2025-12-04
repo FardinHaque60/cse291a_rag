@@ -1,0 +1,77 @@
+----------------------------------------
+prompt: What does the New York times say is the best wireless headphones?
+query preprocess prompt tokens: 809
+query preprocess output tokens: 21
+
+llm generation prompt tokens: 406
+llm generation output tokens: 86
+----------------------------------------
+prompt: I am considering buying the Sony XM4 headphones and I had some questions before I buy them. What is the battery life on these, what charger do they support (usb c?), is there any control on the noise cancelling, is there an option to use it wired, what color options are there?
+query preprocess prompt tokens: 856
+query preprocess output tokens: 53
+
+llm generation prompt tokens: 987
+llm generation output tokens: 84
+----------------------------------------
+prompt: I'm thinking of getting an ASUS ROG gaming laptop, how much would it cost?
+query preprocess prompt tokens: 814
+query preprocess output tokens: 29
+
+llm generation prompt tokens: 1547
+llm generation output tokens: 59
+----------------------------------------
+prompt: The battery on my HP x360 does not charge to full capacity. What options do I have to fix it?
+query preprocess prompt tokens: 821
+query preprocess output tokens: 48
+
+llm generation prompt tokens: 1073
+llm generation output tokens: 85
+----------------------------------------
+prompt: After I replace my Samsung S25 Ultra battery, how do I reset the battery cycle count?
+query preprocess prompt tokens: 816
+query preprocess output tokens: 46
+
+llm generation prompt tokens: 1044
+llm generation output tokens: 45
+----------------------------------------
+prompt: I'm thinking of buying the new iPhone Air, and was wondering what's the weight of the phone?
+query preprocess prompt tokens: 819
+query preprocess output tokens: 39
+
+llm generation prompt tokens: 1561
+llm generation output tokens: 88
+----------------------------------------
+prompt: How do I set timer for Sony ZV-E10?
+query preprocess prompt tokens: 810
+query preprocess output tokens: 46
+
+llm generation prompt tokens: 1142
+llm generation output tokens: 82
+----------------------------------------
+prompt: Does the Sony ILCA-77M2 support wireless flash control and NFC pairing?
+query preprocess prompt tokens: 814
+query preprocess output tokens: 45
+
+llm generation prompt tokens: 684
+llm generation output tokens: 88
+----------------------------------------
+prompt: How big and how much weight is for the camera Sony ILCE-7m4? What's provided with the camera in the box?
+query preprocess prompt tokens: 825
+query preprocess output tokens: 48
+
+llm generation prompt tokens: 1046
+llm generation output tokens: 84
+----------------------------------------
+prompt: How do I change the channel on a Samsung LCD TV?
+query preprocess prompt tokens: 808
+query preprocess output tokens: 41
+
+llm generation prompt tokens: 1024
+llm generation output tokens: 83
+----------------------------------------
+prompt: How do I setup an AORUS gaming monitor?
+query preprocess prompt tokens: 806
+query preprocess output tokens: 42
+
+llm generation prompt tokens: 868
+llm generation output tokens: 108
