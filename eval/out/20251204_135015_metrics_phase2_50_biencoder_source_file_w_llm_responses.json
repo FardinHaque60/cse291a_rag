@@ -1,0 +1,447 @@
+[
+  {
+    "prompt": "What does the New York times say is the best wireless headphones?",
+    "llm_response": "The New York Times Wirecutter has reviewed hundreds of headphones under $100, including wireless options. Lauren Dragan, who has tested over 2,000 headphones, writes about audio tech and OTC hearing aids. The article provides an overview of the best headphones under $100 with links to full reviews.\n",
+    "qdrant_ids": [
+      "eb5e01ab-4f05-494d-bde9-532426ce10bb",
+      "ab9a1bcd-dd32-4494-aeca-3fe055e9e53e",
+      "66f6fba6-3c74-4765-868a-f5cc8838072b",
+      "0464e31c-d646-4cc9-bbf8-2371ad936b81",
+      "7e867df3-8ee4-4703-a87e-cafb8c93a6a4",
+      "498637aa-12f3-47ed-964d-6e450348ad6f",
+      "22997007-e218-40c6-a5f9-f95720bd5b10",
+      "ce73cdb4-d2e7-439d-b9b5-8ee7f051e292",
+      "0d990841-95e1-45e5-b148-d074c89a84d5",
+      "b445192f-4126-48da-a58a-35893b55d4fe"
+    ],
+    "gold_set": [
+      "7e867df3-8ee4-4703-a87e-cafb8c93a6a4"
+    ],
+    "qdrant_files": [
+      "soundguys_review.pdf",
+      "soundguys_review.pdf",
+      "soundguys_review.pdf",
+      "soundguys_review.pdf",
+      "nytimes_review.txt",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf"
+    ],
+    "gold_files": "nytimes_review.txt",
+    "metrics": {
+      "Reciprocal Rank": 0.2,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.38685280723454163,
+      "Latency (milliseconds)": 4791.92
+    }
+  },
+  {
+    "prompt": "I am considering buying the Sony XM4 headphones and I had some questions before I buy them. What is the battery life on these, what charger do they support (usb c?), is there any control on the noise cancelling, is there an option to use it wired, what color options are there?",
+    "llm_response": "The Sony WH-1000XM4 is a wireless noise-canceling stereo headset. You can find specific product information and manuals at https://rd1.sony.net/help/mdr/wh1000xm4/h_zz/. Additional details such as battery life, charger type, noise canceling control options, wired listening capability, and available color variants are not present in the provided context.\n",
+    "qdrant_ids": [
+      "ca104c99-292d-4bd5-b57b-62d118d53737",
+      "6db85199-9e5f-4c1d-ad12-587a46482b6f",
+      "498637aa-12f3-47ed-964d-6e450348ad6f",
+      "b445192f-4126-48da-a58a-35893b55d4fe",
+      "1b520d60-1713-4aa7-8a7a-fc6b41b77b6b",
+      "f34239e1-6a22-4ce3-ba3b-c31862b001c8",
+      "21f74772-22e4-4aed-987c-875cd043fc50",
+      "7a82ff8a-d6f4-412c-9a42-7de5e4f6c663",
+      "3ad84619-a1e1-4f07-9f3a-285b3fd7c5a0",
+      "0d990841-95e1-45e5-b148-d074c89a84d5"
+    ],
+    "gold_set": [
+      "6db85199-9e5f-4c1d-ad12-587a46482b6f"
+    ],
+    "qdrant_files": [
+      "xm4buds_man.pdf",
+      "xm4_man.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf",
+      "cheap_headphones_article.pdf"
+    ],
+    "gold_files": "xm4_man.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0.5,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.6309297535714574,
+      "Latency (milliseconds)": 8468.872
+    }
+  },
+  {
+    "prompt": "I'm thinking of getting an ASUS ROG gaming laptop, how much would it cost?",
+    "llm_response": "I am sorry, but the provided context does not contain the price or cost information for the ASUS ROG gaming laptop. However, it does provide details about the ROG Zephyrus G16 (2025) GU605, including its features, specifications, and warranty information.\n",
+    "qdrant_ids": [
+      "27156f7d-4efe-44ba-97cf-217240fd3591",
+      "245ae41d-d22a-410f-865b-de15d68d7d5f",
+      "d082903a-eae4-47fb-8463-0e492286c310",
+      "d99fd410-b86a-4ca9-a77f-82b846d779fd",
+      "113cbc28-641a-44dc-af94-50ad0605fa2d",
+      "b0be3e77-d843-4175-8a69-05b8670f906d",
+      "f991d5e2-d5eb-4abc-adf6-7f24a7cd322d",
+      "24708283-cf3c-4732-8bd3-1191592430a2",
+      "4bca60d1-4835-48fb-8fb7-983a82c79940",
+      "da8475e1-74f1-4a9b-8cea-d8d267e9a0a8"
+    ],
+    "gold_set": [
+      "d99fd410-b86a-4ca9-a77f-82b846d779fd"
+    ],
+    "qdrant_files": [
+      "ASUS ROG Zephyrus G16 (2025) GU605.html",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+      "ASUS ROG Zephyrus G16 (2025) GU605.pdf"
+    ],
+    "gold_files": "ASUS ROG Zephyrus G16 (2025) GU605.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0.25,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.6159699112686031,
+      "Latency (milliseconds)": 5054.652
+    }
+  },
+  {
+    "prompt": "The battery on my HP x360 does not charge to full capacity. What options do I have to fix it?",
+    "llm_response": "To troubleshoot your HP x360 laptop battery not charging to full capacity, consult the HP Spectre x360 14 inch 2-in-1 Laptop PC Maintenance and Service Guide. This guide provides information on removing and replacing parts, including the battery. The guide also details how to access support information for reported failure incidents stored on the computer.\n",
+    "qdrant_ids": [
+      "a0bf510f-45e8-489a-924b-7f908a12cc76",
+      "a934db7f-f599-4502-9263-1bb0cac4727f",
+      "ad0b9525-f5ab-4fcd-acb1-de680ac9c521",
+      "d2577c5e-f4ba-4c60-a6b8-77394a2d028d",
+      "a2e0e06e-a77c-4f74-8c52-0e954e50696d",
+      "6231e851-8450-42fa-9c22-a8840fba5030",
+      "230ce696-7a66-45ec-801a-d1a90a368418",
+      "23709d9f-0936-40da-afc9-40c8d13a8bde",
+      "65a5070f-ea0d-4b85-9781-9514b0598880",
+      "93ca7e47-7eba-4d6f-9a6a-e225779bfd78"
+    ],
+    "gold_set": [
+      "e8fb9fca-fe80-485b-8bf4-2828d5359e4b",
+      "2f7960bf-d554-4819-8a81-b7252807b444"
+    ],
+    "qdrant_files": [
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf",
+      "HP Spectre x360 service manual.pdf"
+    ],
+    "gold_files": "HP Spectre x360 service manual.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 5063.544
+    }
+  },
+  {
+    "prompt": "After I replace my Samsung S25 Ultra battery, how do I reset the battery cycle count?",
+    "llm_response": "To reset the battery cycle count on your Samsung S25 Ultra after a replacement, launch the Self Repair Assistant app. Select the replaced part by tapping \"Battery\" and then \"Next\". Make sure to wear safety equipment during the repair and perform the repair in a safe place with the device turned off. Refer to the repair guide for detailed instructions and precautions.\n",
+    "qdrant_ids": [
+      "2ef52ac2-0db8-49c5-92b0-7d4b7e816f4f",
+      "bc5b4693-9d8f-4921-80eb-f92f97bcf764",
+      "2fb6a5c3-e27d-438f-9537-bc1380c91db4",
+      "24248a21-c305-4f1e-9501-02d586e14c0b",
+      "4c386abd-9141-4cec-85d4-e0c8fd51da78",
+      "fb7551da-ffd1-4948-8947-6e9127db9c2f",
+      "f7614904-2dc2-4558-9bc0-1e57cf53a0aa",
+      "85e8b492-717c-498f-a690-f8d882d3af5b",
+      "d24656fa-7a2b-47e4-ad96-6344ed140008",
+      "54f9b2fa-e3ef-47d0-b89b-f7de696c4a15"
+    ],
+    "gold_set": [
+      "bc5b4693-9d8f-4921-80eb-f92f97bcf764",
+      "37daddb4-86d6-4422-b998-fe8e71bb100a",
+      "7246658b-41d2-4b2a-b57d-62263980f130"
+    ],
+    "qdrant_files": [
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf",
+      "Samsung_S25_Ultra_Repair_Guide.pdf"
+    ],
+    "gold_files": "Samsung_S25_Ultra_Repair_Guide.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0.5,
+      "Precision@K": 0.2,
+      "Recall@K": 0.3333333333333333,
+      "nDCG@K": 0.850834274847108,
+      "Latency (milliseconds)": 4792.429
+    }
+  },
+  {
+    "prompt": "I'm thinking of buying the new iPhone Air, and was wondering what's the weight of the phone?",
+    "llm_response": "The iPhone Air, introduced in 2025, weighs 5.82 ounces (165 grams).  It has a width of 2.94 inches (74.7 mm), a height of 6.15 inches (156.2 mm), and a depth of 0.22 inch (5.64 mm). This information is derived from the tech specs provided.  A user manual and further product details can be found on the Apple support website.\n",
+    "qdrant_ids": [
+      "b040f822-3c81-46ee-9afd-1f17862ba870",
+      "b89fa9b8-dc82-45fd-9be4-dd4cf42f27d4",
+      "ccdc4d85-fb51-4b8b-bd70-fdcee5e03358",
+      "325664b6-ee83-4f38-8f1f-fb2ac37e4cf4",
+      "91a06c02-e6ff-4a5f-b776-200d2f5933f6",
+      "9aa64165-4b96-46af-b2ea-8f4afaad018c",
+      "d07619b1-e93c-4744-9cb1-3fd76d9843a8",
+      "84617d87-ab10-4b46-8077-6033a75d69a8",
+      "efeced26-01e6-43bc-a2a7-1ba857368b54",
+      "34ec5752-f906-48f1-8b1b-4a31f38b3d8f"
+    ],
+    "gold_set": [
+      "b040f822-3c81-46ee-9afd-1f17862ba870"
+    ],
+    "qdrant_files": [
+      "iPhone Air - Tech Specs - Apple Support.html",
+      "iPhone Air - Tech Specs - Apple Support.html",
+      "iPhone 17 - Tech Specs - Apple Support.html",
+      "iPhone 17 - Tech Specs - Apple Support.html",
+      "iPhone 16e - Tech Specs - Apple Support.html",
+      "iPhone 16e - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro Max - Tech Specs - Apple Support.html",
+      "iPhone 17 Pro Max - Tech Specs - Apple Support.html"
+    ],
+    "gold_files": "iPhone Air - Tech Specs - Apple Support.html",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 4960.654
+    }
+  },
+  {
+    "prompt": "How do I set timer for Sony ZV-E10?",
+    "llm_response": "To set the self-timer on your Sony ZV-E10, press the drive mode button on the control wheel and select either 2, 5, or 10-second self-timer. You can also use the continuous self-timer mode for multiple shots. To stop the count, press the shutter button again or the drive mode button.\n",
+    "qdrant_ids": [
+      "4bc0fa27-cf2f-4950-9558-1b6db542e6ab",
+      "14f7b1ea-affa-40ba-8221-15cb6d83f6a7",
+      "b5658498-b58a-4835-a985-0f9b775b65c5",
+      "0a9559d7-f46a-4ce3-aedf-69c7e0687362",
+      "b4c442ef-c8e7-4412-87f3-e04b2b3ee74d",
+      "d82ca6e3-1e91-4a10-a78f-c03b3a8ee421",
+      "1fcb2e94-15f7-4c2f-90b7-116bb9ff5161",
+      "49e9d53c-c02d-4ae9-9539-e7c2aae0d848",
+      "ad2f92ae-1af1-428d-bfef-023ef8f4b1ff",
+      "8af40ad2-3bc4-43ce-adb6-f8ddc863f2f0"
+    ],
+    "gold_set": [
+      "4bc0fa27-cf2f-4950-9558-1b6db542e6ab",
+      "0a9559d7-f46a-4ce3-aedf-69c7e0687362"
+    ],
+    "qdrant_files": [
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf",
+      "zv-e10_manual.pdf"
+    ],
+    "gold_files": "zv-e10_manual.pdf",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.4,
+      "Recall@K": 1.0,
+      "nDCG@K": 0.9355095261428396,
+      "Latency (milliseconds)": 4533.148
+    }
+  },
+  {
+    "prompt": "Does the Sony ILCA-77M2 support wireless flash control and NFC pairing?",
+    "llm_response": "Yes, the Sony ILCA-77M2 supports NFC One-touch functionality for pairing with NFC-enabled Android smartphones. The camera also has Wi-Fi capabilities, allowing for wireless connection. The manual provides information on using a smartphone as a remote controller and troubleshooting wireless connection issues.\n",
+    "qdrant_ids": [
+      "9c79658e-6281-4deb-8912-5b57d0e6476f",
+      "84d00b54-e9ee-478f-b849-8cdf12550499",
+      "4116df14-cf01-4dd6-ae03-e0a94f07b1a2",
+      "b1e1e7c6-1cc4-4f2e-bbea-2feb3f20177f",
+      "68dcaa3b-0809-400e-a75a-fd5dd887e636",
+      "31e031ac-1295-48e2-a76e-aead3d970b57",
+      "ccb8886f-0f3b-4599-8465-185d89ca68b4",
+      "8ad6b124-90a1-4edb-9f22-b16d69c98598",
+      "6fa89d38-a8e1-4e0f-b3bc-f3da5292e75d",
+      "4aca3f81-66b4-49b8-9afa-e591d830ce1e"
+    ],
+    "gold_set": [
+      "9c79658e-6281-4deb-8912-5b57d0e6476f"
+    ],
+    "qdrant_files": [
+      "ilca-77m2_specifications.json",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf",
+      "ilca-77m2_manual.pdf"
+    ],
+    "gold_files": "ilca-77m2_specifications.json",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 4943.897
+    }
+  },
+  {
+    "prompt": "How big and how much weight is for the camera Sony ILCE-7m4? What's provided with the camera in the box?",
+    "llm_response": "The Sony ILCE-7M4 is an interchangeable lens digital camera with a 35 mm full-frame (35.9 x 23.9 mm) Exmor R CMOS sensor. It has an effective pixel number of approximately 33.0 megapixels and a total pixel number of approximately 34.1 megapixels. The camera features an E-mount lens system and in-camera sensor shift image stabilization.\n",
+    "qdrant_ids": [
+      "36caa18a-fa65-4887-93d5-7cdccc790408",
+      "875b4edb-0771-4054-b9b1-d014af21c1cf",
+      "9e22ddf3-1900-4a88-83d5-8de891a725e8",
+      "0b44e6d7-5a6f-4293-8dec-920566dc7199",
+      "d9979439-7bea-4d67-ab2f-c0fe9d703d7a",
+      "f2c684c2-5d29-4c04-91f3-37ccf8ecf4a6",
+      "3fc75a57-1578-45ac-8472-66c61e152ce9",
+      "5fa7a2c0-92b9-4846-a6d7-59bf76469723",
+      "70e26324-6362-45a0-88d7-c640235f283f",
+      "030265a8-d078-4ac1-b566-2346c2ff38d5"
+    ],
+    "gold_set": [
+      "36caa18a-fa65-4887-93d5-7cdccc790408"
+    ],
+    "qdrant_files": [
+      "ilce-7m4_specifications.json",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf",
+      "ilce-7m4_manual.pdf"
+    ],
+    "gold_files": "ilce-7m4_specifications.json",
+    "metrics": {
+      "Reciprocal Rank": 1.0,
+      "Precision@K": 0.2,
+      "Recall@K": 1.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 4891.809
+    }
+  },
+  {
+    "prompt": "How do I change the channel on a Samsung LCD TV?",
+    "llm_response": "You can change the channel on your Samsung TV in three ways. Use the (Channel) button on the remote, use the Channel List accessed by pressing and holding the (Channel) button, or use the number buttons to enter the channel number. The (Channel) button is the right button of the two center buttons that protrude from the remote.\n",
+    "qdrant_ids": [
+      "323127a1-66aa-4692-ba0f-b499ed346ff0",
+      "2308e838-dff8-416e-8ff8-0696ba9dcbdd",
+      "49a708cd-08a8-4271-9cda-2af57f705d3c",
+      "4f845dc3-83c9-4b13-99c4-f7743262505c",
+      "86a506fc-4cbb-4308-807b-8839155e8dbb",
+      "f563aa25-8d79-4bf4-8c8c-5602b6aa73fc",
+      "5e17b514-fc06-4ae4-9931-331f5a0d09c7",
+      "28ed64a1-33a4-4267-8176-a06e83fb50b8",
+      "8f1dcdab-494d-43e0-83d3-1bf60b398229",
+      "59d0859c-1262-480c-ac55-3b96d8c64b7f"
+    ],
+    "gold_set": [
+      "8613d236-9b91-46da-89b2-20bd9289f6cd"
+    ],
+    "qdrant_files": [
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf",
+      "BN81-24055A-500_EM_OSPATSCC_NA_ENG-US_250430.0.pdf"
+    ],
+    "gold_files": "[LD550-ZA]BN68-04313A-00ENG-0223.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 0.0,
+      "Latency (milliseconds)": 5207.15
+    }
+  },
+  {
+    "prompt": "How do I setup an AORUS gaming monitor?",
+    "llm_response": "The AORUS gaming monitor package includes the monitor, base stand, power cable, HDMI cable, USB cable, USB Type-C cable, DP cable, quick start guide, multilingual installation guide, and warranty card. The user manual covers features like Game Assist, crosshair selection, display alignment, and system settings. The installation guide is included in the package. Ensure the USB cable is connected to the monitor and computer for certain features.\n",
+    "qdrant_ids": [
+      "f0b97248-4452-47b5-abc7-4ef78ca63c6c",
+      "5f7171e9-b1ae-4afa-9d6c-6975b4551257",
+      "1ec3ef34-6671-4261-8616-7b3b5130e65c",
+      "9f2d5b9a-f263-4e48-9dc4-43e721997109",
+      "da8110d4-396c-42f1-a3b9-e88fc44f03c7",
+      "31bba65d-7221-4105-8736-669ef1840316",
+      "ff307944-ee7d-422f-aa1c-d3a4c03b4551",
+      "a19f59aa-8258-483f-91c5-7dede56f2816",
+      "af91e8a5-1fc5-4994-86b0-48ad5addf87c",
+      "da3032c6-0d2b-4896-84fc-031fe9b6f2ea"
+    ],
+    "gold_set": [
+      "1b2699c7-5afb-4dc8-8e12-0d64da1907c4",
+      "c8032e46-3360-44ab-bddd-c98dc9d0f624",
+      "7dc4801f-9407-4853-8ffe-076b8362a107",
+      "04d1e43b-ba74-42ac-b22e-75043d1d6db5",
+      "9466fe47-6e49-46c3-8249-a90b0945e141"
+    ],
+    "qdrant_files": [
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "AORUS_FI32U_UM-English.pdf",
+      "webOS4.1_ENG.pdf"
+    ],
+    "gold_files": "AORUS_FI32U_UM-English.pdf",
+    "metrics": {
+      "Reciprocal Rank": 0,
+      "Precision@K": 0.0,
+      "Recall@K": 0.0,
+      "nDCG@K": 1.0,
+      "Latency (milliseconds)": 5105.443
+    }
+  },
+  {
+    "Reciprocal Rank": 0.495,
+    "Precision@K": 0.164,
+    "Recall@K": 0.667,
+    "nDCG@K": 0.765,
+    "Latency (milliseconds)": 5255.774
+  }
+]
+

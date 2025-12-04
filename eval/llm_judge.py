@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 load_dotenv()
 
-INPUT_FILE = "eval/out/20251126_163345_metrics_phase2_llm_responses.json"
+INPUT_FILE = "eval/out/20251204_135015_metrics_phase2_50_biencoder_source_file_w_llm_responses.json"
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 SYS_PROMPT = """
